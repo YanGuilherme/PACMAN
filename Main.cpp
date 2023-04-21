@@ -7,7 +7,6 @@
 
 #include "Pacman.h"
 #include "Labirinto.h"
-#include "Pilula.h"
 
 using namespace std;
 
@@ -23,6 +22,13 @@ using namespace std;
 #define ALTURA_PACMAN 36
 #define LARGURA_PACMAN 36
 
+void carrega_display(ALLEGRO_DISPLAY *display){
+
+}
+
+
+
+
 int main(){
 
    Pacman pac;
@@ -33,11 +39,12 @@ int main(){
    al_install_keyboard();
 
 
-   ALLEGRO_DISPLAY *display = al_create_display(LARGURA_TABULEIRO,ALTURA_TABULEIRO); //Inicializacao do display
+   ALLEGRO_DISPLAY *display;
+   // carrega_display(display);
+   display = al_create_display(LARGURA_TABULEIRO,ALTURA_TABULEIRO); //Inicializacao do display
    al_set_window_title(display, "PACMAN");
-
-   ALLEGRO_TIMER* timer = al_create_timer(1.0/20.0); // fps
    al_set_window_position(display,200,200); //seta onde abre a tela
+   ALLEGRO_TIMER* timer = al_create_timer(1.0/20.0); // fps
 
    ALLEGRO_EVENT_QUEUE * event_queue = al_create_event_queue();
    al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -51,6 +58,7 @@ int main(){
 
    lab.setNome_arquivo("./imagenstrab/coordenadas.txt");
    lab.carregarPosicaoDosTijolos();
+   lab.carregarPosicaoDasPilulas();
    
 
    while(true){ //Loop principal
@@ -83,6 +91,7 @@ int main(){
       //printf("x: %d\ny: %d", pac.getPos_x(), pac.getPos_y());
       lab.exibir_labirinto();
       pac.exibe_pacman();
+      lab.exibir_pilulas();
       al_flip_display();
    }
 

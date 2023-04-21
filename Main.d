@@ -1,1 +1,1 @@
-Main.o: Main.cpp Pacman.h Labirinto.h CoordenadaTijolo.h Pilula.h
+Main.o: Main.cpp Pacman.h Labirinto.h ListaCoordenadas.h Coordenada.h
