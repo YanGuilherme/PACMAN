@@ -1,6 +1,6 @@
 #include "Labirinto.h"
 #include "Coordenada.h"
-
+#include "ListaCoordenadas.h"
 #include <stdio.h>
 #include <iostream>
 #include <allegro5/allegro.h>
@@ -44,9 +44,13 @@ void Labirinto::carregarPosicaoDosTijolos(){
 
 
 void Labirinto::exibir_pilulas(){
+    //printf("%ld", coordenadas_pilulas.getCoordenadas().size());
     pilula_desenho = al_load_bitmap("./imagenstrab/sprite_pilula.png");
     for(Coordenada& coordenada : coordenadas_pilulas){
-        al_draw_bitmap_region(pilula_desenho, TAM_LADO*(int)frame, 0, TAM_LADO, TAM_LADO, coordenada.getX() ,coordenada.getY(),0);
+        //printf("%f.\n", frame_pilula);
+        al_draw_bitmap_region(pilula_desenho, TAM_LADO*(int)frame_pilula, 0, TAM_LADO, TAM_LADO, TAM_LADO*coordenada.getX() ,TAM_LADO*coordenada.getY(),0);
+        altera_frame_pilula();
+        //printf("%d %d", coordenada.getX(),coordenada.getY());
         //al_draw_bitmap(pilula_desenho,TAM_LADO*coordenada.getX(),TAM_LADO*coordenada.getY(),0);
     }
     
@@ -54,7 +58,7 @@ void Labirinto::exibir_pilulas(){
 void Labirinto::carregarPosicaoDasPilulas(){
     for(int i = 0; i< ORDEM ; i++){
         for(int j = 0; j<ORDEM ; j++){
-            if(matriz_colisao == CELULA_VAZIA){
+            if(matriz_colisao[i][j] == CELULA_VAZIA){
                 coordenadas_pilulas.addCoordenada(Coordenada(i,j));
                 matriz_colisao[i][j]= PILULA; 
             }
@@ -63,9 +67,9 @@ void Labirinto::carregarPosicaoDasPilulas(){
 }
 
 void Labirinto::altera_frame_pilula(){
-      frame += 0.2f;
-      if(frame > 5){
-         frame -= 5;
+      frame_pilula += 0.2f;
+      if(frame_pilula > 5){
+         frame_pilula -= 5;
       }
 }
 

@@ -21,7 +21,7 @@ class Labirinto{
 
 
     public:
-        float frame;
+        float frame_pilula;
         void carregarPosicaoDosTijolos();
         void carregarPosicaoDasPilulas();
         void exibir_labirinto();

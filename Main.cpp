@@ -32,7 +32,13 @@ void carrega_display(ALLEGRO_DISPLAY *display){
 int main(){
 
    Pacman pac;
-   Labirinto lab;
+   Labirinto lab = Labirinto();
+
+
+
+
+
+
     //Inicializacao dos serviços basicos
    al_init();
    al_init_image_addon();
@@ -59,6 +65,16 @@ int main(){
    lab.setNome_arquivo("./imagenstrab/coordenadas.txt");
    lab.carregarPosicaoDosTijolos();
    lab.carregarPosicaoDasPilulas();
+
+      //testes
+   for(int i = 0; i< ORDEM ; i++){
+        for(int j = 0; j<ORDEM ; j++){
+            // if(lab.matriz_colisao[i][j] == CELULA_VAZIA){
+               printf("%d ", lab.matriz_colisao[i][j]);
+            // }
+        }
+        printf("\n");
+    }
    
 
    while(true){ //Loop principal
@@ -90,8 +106,9 @@ int main(){
       pac.move_jogador();
       //printf("x: %d\ny: %d", pac.getPos_x(), pac.getPos_y());
       lab.exibir_labirinto();
-      pac.exibe_pacman();
       lab.exibir_pilulas();
+      pac.exibe_pacman();
+
       al_flip_display();
    }
 

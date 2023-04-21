@@ -9,7 +9,7 @@ OBJ_FILES = $(SRC_FILES:.cpp=.o)
 DEP_FILES = $(SRC_FILES:.cpp=.d)
 
 # Regras de construção
-all:game
+all: game
 
 game:$(OBJ_FILES)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
