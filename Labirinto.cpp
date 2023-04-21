@@ -9,7 +9,7 @@
 #include <allegro5/keyboard.h>
 #include <array> 
 
-void Labirinto::setNome_arquivo(char *nome){
+void Labirinto::setNome_arquivo(const char *nome){
     this->nome_arquivo = nome;
 }
 

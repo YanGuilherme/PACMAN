@@ -29,10 +29,10 @@ class Labirinto{
         void carregarPosicaoDosTijolos();
         void exibir_labirinto();
         ALLEGRO_BITMAP * mapa_desenho;
-        void setNome_arquivo(char * nome);
+        void setNome_arquivo(const char * nome);
     private:
         std::vector<CoordenadaTijolo> coordenadas;
-        char* nome_arquivo;
+        const char* nome_arquivo;
 
         void render();
 };

@@ -48,6 +48,7 @@ int main(){
 
    pac.setDirecao(PARADO);
 
+
    lab.setNome_arquivo("./imagenstrab/coordenadas.txt");
    lab.carregarPosicaoDosTijolos();
    
