@@ -1,1 +1,6 @@
-Pacman.o: Pacman.cpp Pacman.h
+-Wall
+-g
+-MM
+Pacman.cpp
+-MT
+Pacman.o

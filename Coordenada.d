@@ -1,1 +1,6 @@
-Coordenada.o: Coordenada.cpp Coordenada.h
+-Wall
+-g
+-MM
+Coordenada.cpp
+-MT
+Coordenada.o

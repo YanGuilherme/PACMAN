@@ -1,1 +1,6 @@
-ListaCoordenadas.o: ListaCoordenadas.cpp ListaCoordenadas.h Coordenada.h
+-Wall
+-g
+-MM
+ListaCoordenadas.cpp
+-MT
+ListaCoordenadas.o
