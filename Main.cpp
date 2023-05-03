@@ -34,11 +34,6 @@ int main(){
    Pacman pac;
    Labirinto lab = Labirinto();
 
-
-
-
-
-
     //Inicializacao dos serviços basicos
    al_init();
    al_init_image_addon();
