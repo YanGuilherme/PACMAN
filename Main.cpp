@@ -22,15 +22,22 @@ using namespace std;
 #define ALTURA_PACMAN 36
 #define LARGURA_PACMAN 36
 
-void carrega_display(ALLEGRO_DISPLAY *display){
+// void carrega_display(ALLEGRO_DISPLAY *display){
+   
+// }
 
-}
 
+// void colisao(Pacman *pac,Labirinto lab,int indiceX, int indiceY){
+//    if(lab.matriz_colisao[indiceX][indiceY] == TIJOLO){
+//       pac->setDirecao(PARADO);
+//    }   
+// }
 
 
 
 int main(){
 
+   ListaCoordenadas lc;
    Pacman pac;
    Labirinto lab = Labirinto();
 
@@ -65,14 +72,16 @@ int main(){
    for(int i = 0; i< ORDEM ; i++){
         for(int j = 0; j<ORDEM ; j++){
             // if(lab.matriz_colisao[i][j] == CELULA_VAZIA){
-               printf("%d ", lab.matriz_colisao[i][j]);
+               printf("%d ", lab.matriz_colisao[j][i]);
             // }
         }
         printf("\n");
     }
-   
+
+
 
    while(true){ //Loop principal
+
       ALLEGRO_EVENT event;
       al_wait_for_event(event_queue, &event); //esperar o evento
 
@@ -98,16 +107,24 @@ int main(){
          pac.setCurrentFrame(ALTURA_PACMAN * 2);
 
       }
+      int indiceX = (pac.getPos_x()/LARGURA_PACMAN == 0) ? 1 : pac.getPos_x()/LARGURA_PACMAN;
+      int indiceY = (pac.getPos_y()/ALTURA_PACMAN == 0) ? 1 : pac.getPos_y()/ALTURA_PACMAN;
+      //colisao(&pac, lab, indiceX, indiceY);
       pac.move_jogador();
-      //printf("x: %d\ny: %d", pac.getPos_x(), pac.getPos_y());
-      lab.exibir_labirinto();
       lab.exibir_pilulas();
+
       pac.exibe_pacman();
 
       al_flip_display();
+      lab.exibir_labirinto();
+
+      printf("x: %d\ny: %d", indiceX, indiceY);
+
+
+
    }
 
-   al_rest(0.1); //atrasar a movimentacao   
+   al_rest(1.0); //atrasar a movimentacao   
    al_destroy_display(display); //Destroi a tela
    al_destroy_event_queue(event_queue);//destroi fila de eventos
    al_destroy_bitmap(pac.sprite_pacman); //destoi imagem do pacman

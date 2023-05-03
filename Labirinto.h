@@ -32,6 +32,7 @@ class Labirinto{
         void setNome_arquivo(const char * nome);
         int matriz_colisao[ORDEM][ORDEM];
 
+
         Labirinto();
     private:
         ListaCoordenadas coordenadas_pilulas;

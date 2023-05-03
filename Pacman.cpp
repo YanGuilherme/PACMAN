@@ -3,6 +3,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/keyboard.h>
 #include "Pacman.h"
+#include "Labirinto.h"
 
 
 int Pacman::saiu_direita(int x){ 

@@ -13,10 +13,9 @@ void Labirinto::setNome_arquivo(const char *nome){
     this->nome_arquivo = nome;
 }
 
-
 void Labirinto::exibir_labirinto(){
     al_clear_to_color(al_map_rgb(0,0,0)); //Cor de background da tela
-   mapa_desenho = al_load_bitmap("./imagenstrab/bloco.png");
+    mapa_desenho = al_load_bitmap("./imagenstrab/bloco.png");
     for(Coordenada& coordenada : coordenadas_tijolo){
         al_draw_bitmap(mapa_desenho,TAM_LADO*coordenada.getX(),TAM_LADO*coordenada.getY(),0);
     }
