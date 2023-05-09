@@ -18,7 +18,7 @@ using namespace std;
 #define ESQUERDA 4
 #define ALTURA_TABULEIRO 684
 #define LARGURA_TABULEIRO 684
-#define MARGEM 36
+#define MARGEM 38
 #define ALTURA_PACMAN 36
 #define LARGURA_PACMAN 36
 
@@ -29,7 +29,7 @@ using namespace std;
 
 // void colisao(Pacman *pac,Labirinto lab,int indiceX, int indiceY){
 //    if(lab.matriz_colisao[indiceX][indiceY] == TIJOLO){
-//       pac->setDirecao(PARADO);
+//       cout << "Encostei em um tijolo.";
 //    }   
 // }
 
@@ -68,11 +68,11 @@ int main(){
    lab.carregarPosicaoDosTijolos();
    lab.carregarPosicaoDasPilulas();
 
-      //testes
+   //    //testes
    for(int i = 0; i< ORDEM ; i++){
         for(int j = 0; j<ORDEM ; j++){
             // if(lab.matriz_colisao[i][j] == CELULA_VAZIA){
-               printf("%d ", lab.matriz_colisao[j][i]);
+               printf("%d ", lab.matriz_colisao[i][j]);
             // }
         }
         printf("\n");
@@ -109,16 +109,18 @@ int main(){
       }
       int indiceX = (pac.getPos_x()/LARGURA_PACMAN == 0) ? 1 : pac.getPos_x()/LARGURA_PACMAN;
       int indiceY = (pac.getPos_y()/ALTURA_PACMAN == 0) ? 1 : pac.getPos_y()/ALTURA_PACMAN;
-      //colisao(&pac, lab, indiceX, indiceY);
-      pac.move_jogador();
+
+      pac.move_jogador(lab);
       lab.exibir_pilulas();
 
       pac.exibe_pacman();
+      // colisao(&pac, lab, indiceX, indiceY);
 
       al_flip_display();
       lab.exibir_labirinto();
+      // printf("x: %d y: %d  ", indiceX, indiceY);
+      // printf("get_x: %d get_y: %d\n", pac.getPos_x(), pac.getPos_y());
 
-      printf("x: %d\ny: %d", indiceX, indiceY);
 
 
 

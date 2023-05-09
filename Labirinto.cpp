@@ -34,7 +34,7 @@ void Labirinto::carregarPosicaoDosTijolos(){
     int i = 0;
     while (fscanf(arquivoDoLabirinto, "%d %d", &x, &y) == 2){
         coordenadas_tijolo.addCoordenada(Coordenada(x,y));
-        matriz_colisao[x][y]= TIJOLO;
+        matriz_colisao[y][x]= TIJOLO;
         i++;
         
     }
@@ -57,9 +57,9 @@ void Labirinto::exibir_pilulas(){
 void Labirinto::carregarPosicaoDasPilulas(){
     for(int i = 0; i< ORDEM ; i++){
         for(int j = 0; j<ORDEM ; j++){
-            if(matriz_colisao[i][j] == CELULA_VAZIA){
+            if(matriz_colisao[j][i] == CELULA_VAZIA){
                 coordenadas_pilulas.addCoordenada(Coordenada(i,j));
-                matriz_colisao[i][j]= PILULA; 
+                matriz_colisao[j][i]= PILULA; 
             }
         }
     }

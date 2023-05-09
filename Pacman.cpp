@@ -3,12 +3,43 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/keyboard.h>
 #include "Pacman.h"
-#include "Labirinto.h"
+#include <stdio.h>
+#include <iostream>
+
+using namespace std;
 
 
-int Pacman::saiu_direita(int x){ 
+int Pacman::saiu_borda_direita(int x){ 
    return x > LARGURA_TABULEIRO- LARGURA_PACMAN - MARGEM ?  PARADO : DIREITA;
 }
+
+int Pacman::colidiu_direita(Labirinto lab,int x, int y){ 
+   if(saiu_borda_direita(x) == PARADO ){
+      return PARADO;
+   }
+
+   if(colidiu_direita_tijolo(lab) == PARADO){
+      return PARADO;
+   }
+}
+
+int Pacman::colidiu_direita_tijolo(Labirinto lab){ 
+   int indiceX = (getPos_x()/LARGURA_PACMAN == 0) ? 1 : getPos_x()/LARGURA_PACMAN;
+   int indiceY = (getPos_y()/ALTURA_PACMAN == 0) ? 1 : getPos_y()/ALTURA_PACMAN;
+   indiceX += LARGURA_PACMAN/17;
+   indiceY /=17;
+   if(lab.matriz_colisao[indiceY][indiceX] == TIJOLO){
+      return PARADO;
+      //printf("y = %d x = %d\n",j,i);
+   }
+   
+   return DIREITA;
+}
+
+
+
+
+
 
 int Pacman::saiu_esquerda(int x){
    return x < MARGEM ? PARADO : ESQUERDA;
@@ -28,14 +59,12 @@ void Pacman::exibe_pacman(){
     altera_frame();
 }
 
-void Pacman::move_jogador(){
+void Pacman::move_jogador(Labirinto lab){
    if(getDirecao() == PARADO){
       return;
    }
    if(getDirecao() ==  DIREITA){
-
-      setDirecao(saiu_direita(getPos_x()));
-
+      setDirecao(colidiu_direita(lab,getPos_x(),getPos_y()));
       if(getDirecao()  != PARADO) setPos_x(pos_x+=DESLOCAMENTO);
    }else if(getDirecao() == ESQUERDA){
       setDirecao(saiu_esquerda(getPos_x()));
