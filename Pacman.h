@@ -17,8 +17,8 @@
 #define ALTURA_TABULEIRO 684
 #define LARGURA_TABULEIRO 684
 #define MARGEM 38
-#define ALTURA_PACMAN 36
-#define LARGURA_PACMAN 36
+#define ALTURA_PACMAN 35
+#define LARGURA_PACMAN 35
 
 
 class Pacman{
@@ -47,7 +47,7 @@ class Pacman{
     private:
         int saiu_borda_direita(int x);
         int colidiu_direita(Labirinto lab,int x, int y);
-        int colidiu_direita_tijolo(Labirinto lab);
+        int colidiu_direita_tijolo(Labirinto lab, int x, int y);
         int saiu_esquerda(int x);
         int saiu_baixo(int y);
         int saiu_cima(int y);

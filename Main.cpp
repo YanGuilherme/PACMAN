@@ -19,19 +19,19 @@ using namespace std;
 #define ALTURA_TABULEIRO 684
 #define LARGURA_TABULEIRO 684
 #define MARGEM 38
-#define ALTURA_PACMAN 36
-#define LARGURA_PACMAN 36
+#define ALTURA_PACMAN 35
+#define LARGURA_PACMAN 35
 
 // void carrega_display(ALLEGRO_DISPLAY *display){
    
 // }
 
 
-// void colisao(Pacman *pac,Labirinto lab,int indiceX, int indiceY){
-//    if(lab.matriz_colisao[indiceX][indiceY] == TIJOLO){
-//       cout << "Encostei em um tijolo.";
-//    }   
-// }
+void colisao(Pacman *pac,Labirinto lab,int indiceX, int indiceY){
+   if(lab.matriz_colisao[indiceX][indiceY] == TIJOLO){
+      cout << "Encostei em um tijolo." << endl;
+   }   
+}
 
 
 
@@ -69,14 +69,14 @@ int main(){
    lab.carregarPosicaoDasPilulas();
 
    //    //testes
-   for(int i = 0; i< ORDEM ; i++){
-        for(int j = 0; j<ORDEM ; j++){
-            // if(lab.matriz_colisao[i][j] == CELULA_VAZIA){
-               printf("%d ", lab.matriz_colisao[i][j]);
-            // }
-        }
-        printf("\n");
-    }
+   // for(int i = 0; i< ORDEM ; i++){
+   //      for(int j = 0; j<ORDEM ; j++){
+   //          // if(lab.matriz_colisao[i][j] == CELULA_VAZIA){
+   //             printf("%d ", lab.matriz_colisao[j][i]);
+   //          // }
+   //      }
+   //      printf("\n");
+   //  }
 
 
 
@@ -107,21 +107,26 @@ int main(){
          pac.setCurrentFrame(ALTURA_PACMAN * 2);
 
       }
-      int indiceX = (pac.getPos_x()/LARGURA_PACMAN == 0) ? 1 : pac.getPos_x()/LARGURA_PACMAN;
-      int indiceY = (pac.getPos_y()/ALTURA_PACMAN == 0) ? 1 : pac.getPos_y()/ALTURA_PACMAN;
+      int indiceX = (pac.getPos_x()/LARGURA_PACMAN)-(LARGURA_PACMAN);
+      int indiceY = (pac.getPos_y()/LARGURA_PACMAN);
 
       pac.move_jogador(lab);
       lab.exibir_pilulas();
-
       pac.exibe_pacman();
-      // colisao(&pac, lab, indiceX, indiceY);
 
-      al_flip_display();
+
+      //colisao(&pac, lab, pac.getPos_x()/LARGURA_PACMAN, pac.getPos_y()/LARGURA_PACMAN);
+
+      al_flip_display();    
       lab.exibir_labirinto();
-      // printf("x: %d y: %d  ", indiceX, indiceY);
+
+      printf("x: %d y: %d\n",indiceX/17, indiceY/17);
       // printf("get_x: %d get_y: %d\n", pac.getPos_x(), pac.getPos_y());
+   //   if(lab.matriz_colisao[indiceX][indiceY] == TIJOLO){
+   //       printf("Tijolo\n");
+   //    } 
 
-
+      cout << lab.matriz_colisao[pac.getPos_y()/LARGURA_PACMAN][pac.getPos_x()/LARGURA_PACMAN]<< endl;
 
 
    }
