@@ -21,17 +21,17 @@ int Pacman::colidiu_direita(Labirinto lab,int x, int y){
    if(colidiu_direita_tijolo(lab, x ,y) == PARADO ){
       return PARADO;
    }
+   return DIREITA;
 }
 
 int Pacman::colidiu_direita_tijolo(Labirinto lab, int x, int y){ 
    int indiceX, indiceY;
-   indiceX = (x/LARGURA_PACMAN)-(LARGURA_PACMAN);
-   indiceY = (y/LARGURA_PACMAN);
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO){
+   indiceX = (x/LARGURA_PACMAN)+1;
+   indiceY = ((y+9)/LARGURA_PACMAN);
+   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
       return PARADO;
    }
-   
-   setDirecao(DIREITA);
+   return DIREITA;
 }
 
 
@@ -63,7 +63,6 @@ void Pacman::move_jogador(Labirinto lab){
    }
    if(getDirecao() ==  DIREITA){
       setDirecao(colidiu_direita(lab,getPos_x(),getPos_y()));
-      ////setDirecao(saiu_borda_direita(getPos_x()));
       if(getDirecao()  != PARADO) setPos_x(pos_x+=DESLOCAMENTO);
    }else if(getDirecao() == ESQUERDA){
       setDirecao(saiu_esquerda(getPos_x()));

@@ -19,8 +19,8 @@ using namespace std;
 #define ALTURA_TABULEIRO 684
 #define LARGURA_TABULEIRO 684
 #define MARGEM 38
-#define ALTURA_PACMAN 35
-#define LARGURA_PACMAN 35
+#define ALTURA_PACMAN 36
+#define LARGURA_PACMAN 36
 
 // void carrega_display(ALLEGRO_DISPLAY *display){
    
@@ -107,7 +107,7 @@ int main(){
          pac.setCurrentFrame(ALTURA_PACMAN * 2);
 
       }
-      int indiceX = (pac.getPos_x()/LARGURA_PACMAN)-(LARGURA_PACMAN);
+      int indiceX = (pac.getPos_x()/LARGURA_PACMAN);
       int indiceY = (pac.getPos_y()/LARGURA_PACMAN);
 
       pac.move_jogador(lab);
@@ -120,13 +120,13 @@ int main(){
       al_flip_display();    
       lab.exibir_labirinto();
 
-      printf("x: %d y: %d\n",indiceX/17, indiceY/17);
-      // printf("get_x: %d get_y: %d\n", pac.getPos_x(), pac.getPos_y());
+      printf("x: %d y: %d\n",indiceX, indiceY);
+      printf("get_x: %d get_y: %d\n", pac.getPos_x(), pac.getPos_y());
    //   if(lab.matriz_colisao[indiceX][indiceY] == TIJOLO){
    //       printf("Tijolo\n");
    //    } 
 
-      cout << lab.matriz_colisao[pac.getPos_y()/LARGURA_PACMAN][pac.getPos_x()/LARGURA_PACMAN]<< endl;
+      //cout << lab.matriz_colisao[pac.getPos_y()/LARGURA_PACMAN][pac.getPos_x()/LARGURA_PACMAN]<< endl;
 
 
    }

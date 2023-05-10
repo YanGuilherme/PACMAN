@@ -17,8 +17,8 @@
 #define ALTURA_TABULEIRO 684
 #define LARGURA_TABULEIRO 684
 #define MARGEM 38
-#define ALTURA_PACMAN 35
-#define LARGURA_PACMAN 35
+#define ALTURA_PACMAN 36
+#define LARGURA_PACMAN 36
 
 
 class Pacman{
