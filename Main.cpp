@@ -68,15 +68,15 @@ int main(){
    lab.carregarPosicaoDosTijolos();
    lab.carregarPosicaoDasPilulas();
 
-   //    //testes
-   // for(int i = 0; i< ORDEM ; i++){
-   //      for(int j = 0; j<ORDEM ; j++){
-   //          // if(lab.matriz_colisao[i][j] == CELULA_VAZIA){
-   //             printf("%d ", lab.matriz_colisao[j][i]);
-   //          // }
-   //      }
-   //      printf("\n");
-   //  }
+
+   // // for(int i = 0; i< ORDEM ; i++){
+   // //      for(int j = 0; j<ORDEM ; j++){
+   // //          if(lab.matriz_colisao[i][j] == CELULA_VAZIA){
+   // //             printf("%d-%d ", i,j);
+   // //          }
+   // //      }
+   // //      printf(" \n");
+   // //  }
 
 
 
@@ -88,27 +88,31 @@ int main(){
       if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){ // fechar janela clicando no x
          break;
       }else if(event.keyboard.keycode == ALLEGRO_KEY_RIGHT){
-         pac.setDirecao(DIREITA);
          pac.setCurrentFrame(0);
+         pac.setDirecao(DIREITA);
+
 
       }else if(event.keyboard.keycode == ALLEGRO_KEY_LEFT){
 
-         pac.setDirecao(ESQUERDA);
          pac.setCurrentFrame(ALTURA_PACMAN);
+         pac.setDirecao(ESQUERDA);
+
       
 
       }else if(event.keyboard.keycode == ALLEGRO_KEY_DOWN){
-         pac.setDirecao(BAIXO);
          pac.setCurrentFrame(ALTURA_PACMAN * 3);
+         pac.setDirecao(BAIXO);
+
          
 
       }else if(event.keyboard.keycode == ALLEGRO_KEY_UP){
-         pac.setDirecao(CIMA);
          pac.setCurrentFrame(ALTURA_PACMAN * 2);
+         pac.setDirecao(CIMA);
+
 
       }
-      int indiceX = (pac.getPos_x()/LARGURA_PACMAN);
-      int indiceY = (pac.getPos_y()/LARGURA_PACMAN);
+      int indiceX = (pac.getPos_x()/ALTURA_PACMAN);
+      int indiceY = (pac.getPos_y()/ALTURA_PACMAN);
 
       pac.move_jogador(lab);
       lab.exibir_pilulas();

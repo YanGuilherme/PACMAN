@@ -31,6 +31,8 @@ class Pacman{
 
         void altera_frame();
 
+
+
         int getPos_x();
         int getPos_y();
         int getDirecao();
@@ -66,7 +68,7 @@ class Pacman{
         
    
         //variaveis para a movimentacao do pacman;
-        int pos_x = (LARGURA_TABULEIRO/2-(LARGURA_PACMAN/2)), pos_y = ((ALTURA_TABULEIRO/2-(ALTURA_PACMAN/2))+36);
+        int pos_x = (LARGURA_TABULEIRO/2-(LARGURA_PACMAN/2)), pos_y = ((ALTURA_TABULEIRO/2-(ALTURA_PACMAN/2))+ALTURA_PACMAN);
         int current_frame_y = 0;
         int direcao = PARADO;
 };

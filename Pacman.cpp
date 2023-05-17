@@ -26,12 +26,12 @@ int Pacman::colidiu_direita(Labirinto lab,int x, int y){
 
 int Pacman::colidiu_direita_tijolo(Labirinto lab, int x, int y){ 
    int indiceX, indiceY;
-   indiceX = (x/LARGURA_PACMAN)+1;
-   indiceY = (y/LARGURA_PACMAN);
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
-      return PARADO;
+   indiceX = (x/ALTURA_PACMAN)+1;
+   indiceY = (y/ALTURA_PACMAN);
+   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == PILULA ){
+      return DIREITA;
    }
-   return DIREITA;
+   return PARADO;
 }
 
 
@@ -40,7 +40,7 @@ int Pacman::colidiu_direita_tijolo(Labirinto lab, int x, int y){
 
 
 int Pacman::saiu_borda_esquerda(int x){
-   return x < MARGEM ? PARADO : ESQUERDA;
+   return x <= MARGEM ? PARADO : ESQUERDA;
 }
 
 int Pacman::colidiu_esquerda(Labirinto lab,int x, int y){ 
@@ -57,11 +57,11 @@ int Pacman::colidiu_esquerda(Labirinto lab,int x, int y){
 int Pacman::colidiu_esquerda_tijolo(Labirinto lab, int x, int y){ 
    int indiceX, indiceY;
    indiceX = (x/LARGURA_PACMAN);
-   indiceY = (y/LARGURA_PACMAN);
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
-      return PARADO;
+   indiceY = (y/ALTURA_PACMAN);
+   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == PILULA ){
+      return ESQUERDA;
    }
-   return ESQUERDA;
+   return PARADO;
 }
 
 
@@ -86,21 +86,21 @@ int Pacman::colidiu_baixo(Labirinto lab,int x, int y){
 
 int Pacman::colidiu_baixo_tijolo(Labirinto lab, int x, int y){ 
    int indiceX, indiceY;
-   indiceX = (x/LARGURA_PACMAN);
-   indiceY= (y/LARGURA_PACMAN)+1;
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
-      return PARADO;
+   indiceX = (x/ALTURA_PACMAN);
+   indiceY= (y/ALTURA_PACMAN)+1;
+   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == PILULA ){
+      return BAIXO;
    }
-   return BAIXO;
+   return PARADO;
 }
 
 
 
 int Pacman::saiu_borda_cima(int y){
-   return y < MARGEM ? PARADO : CIMA;
+   return y <= MARGEM ? PARADO : CIMA;
 }
 int Pacman::colidiu_cima(Labirinto lab,int x, int y){ 
-   if(saiu_borda_cima(x) == PARADO){
+   if(saiu_borda_cima(y) == PARADO){
       return PARADO;
    }
 
@@ -112,12 +112,12 @@ int Pacman::colidiu_cima(Labirinto lab,int x, int y){
 
 int Pacman::colidiu_cima_tijolo(Labirinto lab, int x, int y){ 
    int indiceX, indiceY;
-   indiceX = (x/LARGURA_PACMAN);
-   indiceY = (y/LARGURA_PACMAN);
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
-      return PARADO;
+   indiceX = (x/ALTURA_PACMAN);
+   indiceY = (y/ALTURA_PACMAN);
+   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == PILULA ){
+      return CIMA;
    }
-   return CIMA;
+   return PARADO;
 }
 
 void Pacman::exibe_pacman(){
@@ -131,8 +131,8 @@ void Pacman::move_jogador(Labirinto lab){
       return;
    }
    if(getDirecao() ==  DIREITA){
-      setDirecao(colidiu_direita(lab,getPos_x(),getPos_y()));
-      if(getDirecao()  != PARADO) setPos_x(pos_x+=DESLOCAMENTO);
+         setDirecao(colidiu_direita(lab,getPos_x(),getPos_y())); 
+            if(getDirecao()  != PARADO) setPos_x(pos_x+=DESLOCAMENTO);
    }else if(getDirecao() == ESQUERDA){
       setDirecao(colidiu_esquerda(lab,getPos_x(),getPos_y()));
       if(getDirecao() != PARADO) setPos_x(pos_x-= DESLOCAMENTO);
