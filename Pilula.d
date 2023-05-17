@@ -1,1 +1,0 @@
-Pilula.o: Pilula.cpp
