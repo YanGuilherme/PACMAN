@@ -1,0 +1,11 @@
+Comandos para jogar:
+
+1. Compile os arquivos usando o Makefile
+comando: make (no terminal)
+
+2. Abra o jogo 
+comando: ./game (no terminal)
+
+3. Feche usando o x no canto superior direito da tela.
+
+4. Caso ocorra algum bug, feche e execute o jogo novamente.
