@@ -48,9 +48,20 @@ class Pacman{
         int saiu_borda_direita(int x);
         int colidiu_direita(Labirinto lab,int x, int y);
         int colidiu_direita_tijolo(Labirinto lab, int x, int y);
-        int saiu_esquerda(int x);
-        int saiu_baixo(int y);
-        int saiu_cima(int y);
+
+        int saiu_borda_esquerda(int x);
+        int colidiu_esquerda(Labirinto lab,int x, int y);
+        int colidiu_esquerda_tijolo(Labirinto lab, int x, int y);
+
+
+        int colidiu_baixo_tijolo(Labirinto lab, int x, int y);
+        int saiu_borda_baixo(int y);
+        int colidiu_baixo(Labirinto lab,int x, int y);
+
+        int saiu_borda_cima(int y);
+        int colidiu_cima_tijolo(Labirinto lab, int x, int y);
+        int colidiu_cima(Labirinto lab,int x, int y);
+
         
         
    

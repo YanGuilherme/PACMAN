@@ -122,8 +122,8 @@ int main(){
 
       printf("x: %d y: %d\n",indiceX, indiceY);
       printf("get_x: %d get_y: %d\n", pac.getPos_x(), pac.getPos_y());
-   //   if(lab.matriz_colisao[indiceX][indiceY] == TIJOLO){
-   //       printf("Tijolo\n");
+   //   if(lab.matriz_colisao[indiceX][indiceY] == PILULA){
+   //       printf("PILULA\n");
    //    } 
 
       //cout << lab.matriz_colisao[pac.getPos_y()/LARGURA_PACMAN][pac.getPos_x()/LARGURA_PACMAN]<< endl;
