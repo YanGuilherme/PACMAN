@@ -6,7 +6,7 @@
 #include "Coordenada.h"
 #include <vector>
 
-#define TAM_LADO 36
+#define TAM_LADO 38
 #define ORDEM 19 
 
 #define CELULA_VAZIA 0

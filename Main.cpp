@@ -10,17 +10,6 @@
 
 using namespace std;
 
-#define DESLOCAMENTO 5
-#define PARADO 0
-#define CIMA 1
-#define DIREITA 2
-#define BAIXO 3
-#define ESQUERDA 4
-#define ALTURA_TABULEIRO 684
-#define LARGURA_TABULEIRO 684
-#define MARGEM 38
-#define ALTURA_PACMAN 36
-#define LARGURA_PACMAN 36
 
 // void carrega_display(ALLEGRO_DISPLAY *display){
    
