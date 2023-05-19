@@ -48,22 +48,18 @@ class Pacman{
 
 
     private:
-        int saiu_borda_direita();
-        int colidiu_direita(Labirinto lab);
+
         int colidiu_direita_tijolo(Labirinto lab);
 
-        int saiu_borda_esquerda();
-        int colidiu_esquerda(Labirinto lab);
         int colidiu_esquerda_tijolo(Labirinto lab);
 
 
         int colidiu_baixo_tijolo(Labirinto lab);
-        int saiu_borda_baixo();
-        int colidiu_baixo(Labirinto lab);
 
-        int saiu_borda_cima();
+
+
         int colidiu_cima_tijolo(Labirinto lab);
-        int colidiu_cima(Labirinto lab);
+
 
         
         

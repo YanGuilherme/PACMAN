@@ -77,25 +77,21 @@ int main(){
       if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){ // fechar janela clicando no x
          break;
       }else if(event.keyboard.keycode == ALLEGRO_KEY_RIGHT){
-         pac.setCurrentFrame(0);
          pac.setDirecao(DIREITA);
 
 
       }else if(event.keyboard.keycode == ALLEGRO_KEY_LEFT){
 
-         pac.setCurrentFrame(ALTURA_PACMAN);
          pac.setDirecao(ESQUERDA);
 
       
 
       }else if(event.keyboard.keycode == ALLEGRO_KEY_DOWN){
-         pac.setCurrentFrame(ALTURA_PACMAN * 3);
          pac.setDirecao(BAIXO);
 
          
 
       }else if(event.keyboard.keycode == ALLEGRO_KEY_UP){
-         pac.setCurrentFrame(ALTURA_PACMAN * 2);
          pac.setDirecao(CIMA);
 
 
