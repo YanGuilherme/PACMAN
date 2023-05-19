@@ -20,6 +20,7 @@
 #define MARGEM 38
 #define ALTURA_PACMAN 38
 #define LARGURA_PACMAN 38
+#define SEM_INTENCAO 6
 
 
 class Pacman{
@@ -39,10 +40,14 @@ class Pacman{
         int getDirecao();
         int getCurrentFrame();
 
+        int getIntencao();
+
         void setPos_x(int x);
         void setPos_y(int y);
         void setDirecao(int dir);
         void setCurrentFrame(int cf);
+
+        void setIntencao(int inten);
 
         ALLEGRO_BITMAP* sprite_pacman;
 
@@ -68,6 +73,7 @@ class Pacman{
         int pos_x = (LARGURA_TABULEIRO/2-(LARGURA_PACMAN/2)), pos_y = ((ALTURA_TABULEIRO/2-(ALTURA_PACMAN/2))+ALTURA_PACMAN);
         int current_frame_y = 0;
         int direcao = PARADO;
+        int intencao = SEM_INTENCAO;
 };
 
 #endif

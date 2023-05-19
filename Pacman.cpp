@@ -8,57 +8,39 @@
 
 using namespace std;
 
-
-
-
 int Pacman::colidiu_direita_tijolo(Labirinto lab){ 
    int indiceX, indiceY;
    indiceX = (pos_x/ALTURA_PACMAN)+1;
    indiceY = (pos_y/ALTURA_PACMAN);
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == PILULA ){
-      return DIREITA;
+   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO){
+      return PARADO;
    }
-   return PARADO;
+   return DIREITA;
 }
-
-
-
-
-
-
 
 
 int Pacman::colidiu_esquerda_tijolo(Labirinto lab){ 
    int indiceX, indiceY;
-   indiceX = (pos_x-5)/LARGURA_PACMAN;
+   indiceX = (pos_x-5)/(LARGURA_PACMAN);
    indiceY = (pos_y)/ALTURA_PACMAN;
    
 
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] != TIJOLO ){
-      return ESQUERDA;
+   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
+      return PARADO;
    }
-   return PARADO;
+   return ESQUERDA;
 }
-
-
-
-
-
-
 
 
 int Pacman::colidiu_baixo_tijolo(Labirinto lab){ 
    int indiceX, indiceY;
    indiceX = (pos_x/ALTURA_PACMAN);
    indiceY= (pos_y/ALTURA_PACMAN)+1;
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == PILULA ){
-      return BAIXO;
+   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
+      return PARADO;
    }
-   return PARADO;
+   return BAIXO;
 }
-
-
-
 
 
 int Pacman::colidiu_cima_tijolo(Labirinto lab){ 
@@ -66,10 +48,10 @@ int Pacman::colidiu_cima_tijolo(Labirinto lab){
    indiceX = ((pos_x)/ALTURA_PACMAN);
    indiceY= ((pos_y-5)/ALTURA_PACMAN);
 
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == PILULA ){
-      return CIMA;
+   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
+      return PARADO;
    }
-   return PARADO;
+   return CIMA;
 }
 
 void Pacman::exibe_pacman(){
@@ -79,13 +61,34 @@ void Pacman::exibe_pacman(){
 }
 
 void Pacman::move_jogador(Labirinto lab){
-   if(direcao == DIREITA){
-         direcao = colidiu_direita_tijolo(lab); 
-            if(direcao  != PARADO){
-               current_frame_y = 0;
-               pos_x+=DESLOCAMENTO;
-            }
 
+   if(intencao == SEM_INTENCAO && direcao == PARADO){ 
+      return;
+   }
+
+   if(intencao == DIREITA && colidiu_direita_tijolo(lab)){
+      printf("Intencao = direita\n");
+      direcao = intencao;
+   }
+
+   if(intencao == ESQUERDA && colidiu_esquerda_tijolo(lab)){
+      direcao = intencao;
+   }
+   
+   if(intencao == CIMA && colidiu_cima_tijolo(lab)){
+      direcao = intencao;
+   }
+
+   if(intencao == BAIXO && colidiu_baixo_tijolo(lab)){
+      direcao = intencao;
+   }
+   
+   if(direcao == DIREITA){
+      direcao = colidiu_direita_tijolo(lab); 
+      if(direcao  != PARADO){
+         current_frame_y = 0;
+         pos_x+=DESLOCAMENTO;
+      }
 
    }else if(direcao == ESQUERDA){
       direcao =colidiu_esquerda_tijolo(lab);
@@ -134,6 +137,10 @@ int Pacman::getCurrentFrame(){
     return current_frame_y;
 }
 
+int Pacman::getIntencao(){
+    return intencao;
+}
+
 void Pacman::setPos_x(int x){
     pos_x = x;
 }
@@ -148,3 +155,6 @@ void Pacman::setCurrentFrame(int cf){
     current_frame_y = cf;
 }
 
+void Pacman::setIntencao(int inten){
+   intencao = inten;
+}

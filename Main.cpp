@@ -77,22 +77,22 @@ int main(){
       if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){ // fechar janela clicando no x
          break;
       }else if(event.keyboard.keycode == ALLEGRO_KEY_RIGHT){
-         pac.setDirecao(DIREITA);
+         pac.setIntencao(DIREITA);
 
 
       }else if(event.keyboard.keycode == ALLEGRO_KEY_LEFT){
 
-         pac.setDirecao(ESQUERDA);
+         pac.setIntencao(ESQUERDA);
 
       
 
       }else if(event.keyboard.keycode == ALLEGRO_KEY_DOWN){
-         pac.setDirecao(BAIXO);
+         pac.setIntencao(BAIXO);
 
          
 
       }else if(event.keyboard.keycode == ALLEGRO_KEY_UP){
-         pac.setDirecao(CIMA);
+         pac.setIntencao(CIMA);
 
 
       }
