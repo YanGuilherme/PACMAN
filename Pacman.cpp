@@ -58,8 +58,8 @@ int Pacman::colidiu_esquerda(Labirinto lab){
 
 int Pacman::colidiu_esquerda_tijolo(Labirinto lab){ 
    int indiceX, indiceY;
-   indiceX = pos_x/LARGURA_PACMAN;
-   indiceY = (pos_y+ALTURA_PACMAN/2)/ALTURA_PACMAN;
+   indiceX = (pos_x-5)/LARGURA_PACMAN;
+   indiceY = (pos_y)/ALTURA_PACMAN;
    
 
    if(lab.matriz_colisao[(int)indiceY][(int)indiceX] != TIJOLO ){
@@ -117,8 +117,8 @@ int Pacman::colidiu_cima(Labirinto lab){
 
 int Pacman::colidiu_cima_tijolo(Labirinto lab){ 
    int indiceX, indiceY;
-   indiceX = ((pos_x+LARGURA_PACMAN/2)/ALTURA_PACMAN);
-   indiceY= (pos_y/ALTURA_PACMAN);
+   indiceX = ((pos_x)/ALTURA_PACMAN);
+   indiceY= ((pos_y-5)/ALTURA_PACMAN);
 
    if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == PILULA ){
       return CIMA;
@@ -136,7 +136,7 @@ void Pacman::move_jogador(Labirinto lab){
    if(getDirecao() == PARADO){
       return;
    }
-   if(getDirecao() ==  DIREITA){
+   if(direcao ==  DIREITA){
          setDirecao(colidiu_direita(lab)); 
             if(getDirecao()  != PARADO) setPos_x(pos_x+=DESLOCAMENTO);
    }else if(getDirecao() == ESQUERDA){
