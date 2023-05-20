@@ -48,6 +48,9 @@ class Pacman{
         void setCurrentFrame(int cf);
 
         void setIntencao(int inten);
+        void coleta_pilula(Labirinto  *lab);
+
+
 
         ALLEGRO_BITMAP* sprite_pacman;
 
@@ -64,7 +67,6 @@ class Pacman{
 
 
         int colidiu_cima_tijolo(Labirinto lab);
-
 
         
         

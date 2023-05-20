@@ -1,4 +1,4 @@
-#include "vector"
+#include <vector>
 #include "Coordenada.h"
 
 #ifndef LISTA_COORDENADAS
@@ -15,6 +15,7 @@ class ListaCoordenadas{
             this->coordenadas.push_back(coordenada);
         }
 
+
         // Implementação da função begin()
         std::vector<Coordenada>::iterator begin() {
             return coordenadas.begin();
@@ -25,6 +26,7 @@ class ListaCoordenadas{
             return coordenadas.end();
         }   
 
+        
     private:
         std::vector<Coordenada> coordenadas;
 

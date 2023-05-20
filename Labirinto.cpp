@@ -43,14 +43,18 @@ void Labirinto::carregarPosicaoDosTijolos(){
 
 
 void Labirinto::exibir_pilulas(){
-    //printf("%ld", coordenadas_pilulas.getCoordenadas().size());
+    int indiceX;
+    int indiceY;
+    
     pilula_desenho = al_load_bitmap("./imagenstrab/sprite_pilula.png");
     for(Coordenada& coordenada : coordenadas_pilulas){
-        //printf("%f.\n", frame_pilula);
-        al_draw_bitmap_region(pilula_desenho, TAM_LADO*(int)frame_pilula, 0, TAM_LADO, TAM_LADO, TAM_LADO*coordenada.getX() ,TAM_LADO*coordenada.getY(),0);
-        altera_frame_pilula();
-        //printf("%d %d", coordenada.getX(),coordenada.getY());
-        //al_draw_bitmap(pilula_desenho,TAM_LADO*coordenada.getX(),TAM_LADO*coordenada.getY(),0);
+        if(matriz_colisao[coordenada.getY()][coordenada.getX()] == PILULA){
+            indiceX = coordenada.getX();
+            indiceY = coordenada.getY();
+            al_draw_bitmap_region(pilula_desenho, TAM_LADO*(int)frame_pilula, 0, TAM_LADO, TAM_LADO, TAM_LADO*indiceX ,TAM_LADO*indiceY,0);
+            altera_frame_pilula();
+        }
+
     }
     
 }

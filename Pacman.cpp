@@ -67,7 +67,6 @@ void Pacman::move_jogador(Labirinto lab){
    }
 
    if(intencao == DIREITA && colidiu_direita_tijolo(lab)){
-      printf("Intencao = direita\n");
       direcao = intencao;
    }
 
@@ -114,6 +113,16 @@ void Pacman::move_jogador(Labirinto lab){
       }
 
    }
+}
+
+void Pacman::coleta_pilula(Labirinto *lab){
+   int indiceX = (pos_x+(LARGURA_PACMAN/2))/LARGURA_PACMAN;
+   int indiceY = (pos_y+(ALTURA_PACMAN/2))/ALTURA_PACMAN;
+
+   if(lab->matriz_colisao[indiceY][indiceX] == PILULA){
+      lab->matriz_colisao[indiceY][indiceX] = CELULA_VAZIA;
+   }
+
 }
 
 void Pacman::altera_frame(){

@@ -11,9 +11,16 @@
 using namespace std;
 
 
-// void carrega_display(ALLEGRO_DISPLAY *display){
-   
-// }
+
+void imprime_matriz_colisao(Labirinto lab){
+   for(int i = 0 ; i<ORDEM ; i++){
+      for(int j = 0 ; j <ORDEM; j++){
+            printf("%d", lab.matriz_colisao[i][j]);
+      }
+         printf("\n");
+   }
+
+}
 
 
 void colisao(Pacman *pac,Labirinto lab,int indiceX, int indiceY){
@@ -58,17 +65,6 @@ int main(){
    lab.carregarPosicaoDasPilulas();
 
 
-   // // for(int i = 0; i< ORDEM ; i++){
-   // //      for(int j = 0; j<ORDEM ; j++){
-   // //          if(lab.matriz_colisao[i][j] == CELULA_VAZIA){
-   // //             printf("%d-%d ", i,j);
-   // //          }
-   // //      }
-   // //      printf(" \n");
-   // //  }
-
-
-
    while(true){ //Loop principal
 
       ALLEGRO_EVENT event;
@@ -96,26 +92,22 @@ int main(){
 
 
       }
-      int indiceX = (pac.getPos_x()/ALTURA_PACMAN);
-      int indiceY = (pac.getPos_y()/ALTURA_PACMAN);
+      //int indiceX = (pac.getPos_x()/ALTURA_PACMAN);
+      //int indiceY = (pac.getPos_y()/ALTURA_PACMAN);
 
       pac.move_jogador(lab);
+      pac.coleta_pilula(&lab);
       lab.exibir_pilulas();
       pac.exibe_pacman();
 
+      imprime_matriz_colisao(lab);
 
-      //colisao(&pac, lab, pac.getPos_x()/LARGURA_PACMAN, pac.getPos_y()/LARGURA_PACMAN);
+
 
       al_flip_display();    
       lab.exibir_labirinto();
 
-      printf("x: %d y: %d\n",indiceX, indiceY);
-      printf("get_x: %d get_y: %d\n", pac.getPos_x(), pac.getPos_y());
-   //   if(lab.matriz_colisao[indiceX][indiceY] == PILULA){
-   //       printf("PILULA\n");
-   //    } 
 
-      //cout << lab.matriz_colisao[pac.getPos_y()/LARGURA_PACMAN][pac.getPos_x()/LARGURA_PACMAN]<< endl;
 
 
    }
