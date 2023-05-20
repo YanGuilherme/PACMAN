@@ -48,7 +48,7 @@ class Pacman{
         void setCurrentFrame(int cf);
 
         void setIntencao(int inten);
-        void coleta_pilula(Labirinto  *lab);
+        int coleta_pilula(Labirinto  *lab);
 
 
 

@@ -31,16 +31,14 @@ class Labirinto{
         ALLEGRO_BITMAP * pilula_desenho;
         void setNome_arquivo(const char * nome);
         int matriz_colisao[ORDEM][ORDEM];
+        int conta_pilulas();
 
 
         Labirinto();
     private:
         ListaCoordenadas coordenadas_pilulas;
         ListaCoordenadas coordenadas_tijolo;
-
         const char* nome_arquivo;
-
-        void render();
 };
 
 #endif

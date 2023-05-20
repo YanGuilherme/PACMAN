@@ -34,7 +34,8 @@ void Labirinto::carregarPosicaoDosTijolos(){
     int i = 0;
     while (fscanf(arquivoDoLabirinto, "%d %d", &x, &y) == 2){
         coordenadas_tijolo.addCoordenada(Coordenada(x,y));
-        matriz_colisao[y][x]= TIJOLO;
+ 
+       matriz_colisao[y][x]= TIJOLO;
         i++;
         
     }
@@ -58,6 +59,19 @@ void Labirinto::exibir_pilulas(){
     }
     
 }
+
+int Labirinto::conta_pilulas(){
+    int temp = 0;
+    for(int i = 0 ; i<ORDEM ; i++){
+       for(int j = 0 ; j <ORDEM; j++){
+            if(matriz_colisao[i][j] == PILULA){
+                temp++;
+            }
+      }
+   }
+    return temp;
+
+}
 void Labirinto::carregarPosicaoDasPilulas(){
     for(int i = 0; i< ORDEM ; i++){
         for(int j = 0; j<ORDEM ; j++){
@@ -74,9 +88,6 @@ void Labirinto::altera_frame_pilula(){
       if(frame_pilula > 5){
          frame_pilula -= 5;
       }
-}
-
-void Labirinto::render(){
 }
 
 Labirinto::Labirinto(){

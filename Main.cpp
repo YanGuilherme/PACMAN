@@ -4,7 +4,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/keyboard.h>
-
+#include <allegro5/allegro_ttf.h>
 #include "Pacman.h"
 #include "Labirinto.h"
 
@@ -22,20 +22,20 @@ void imprime_matriz_colisao(Labirinto lab){
 
 }
 
+void atualiza_placar(){
 
-void colisao(Pacman *pac,Labirinto lab,int indiceX, int indiceY){
-   if(lab.matriz_colisao[indiceX][indiceY] == TIJOLO){
-      cout << "Encostei em um tijolo." << endl;
-   }   
 }
-
-
 
 int main(){
 
+   bool roda_jogo = true;
    ListaCoordenadas lc;
    Pacman pac;
    Labirinto lab = Labirinto();
+   int placar = 0;
+   int pilulas_totais = 0;
+
+   char texto[50];
 
     //Inicializacao dos serviços basicos
    al_init();
@@ -44,6 +44,18 @@ int main(){
 
 
    ALLEGRO_DISPLAY *display;
+
+    // Inicialize o addon Allegro para trabalhar com fontes TrueType (TTF)
+    al_init_font_addon();
+    al_init_ttf_addon();
+
+   // Carregando fonte especifica
+   ALLEGRO_FONT *font = al_load_font("./imagenstrab/fonte_jogo.ttf", 40, 0);
+
+
+   // Defina a cor do texto
+   ALLEGRO_COLOR textColor = al_map_rgb(85,255,249);
+
    // carrega_display(display);
    display = al_create_display(LARGURA_TABULEIRO,ALTURA_TABULEIRO); //Inicializacao do display
    al_set_window_title(display, "PACMAN");
@@ -64,51 +76,53 @@ int main(){
    lab.carregarPosicaoDosTijolos();
    lab.carregarPosicaoDasPilulas();
 
+   pilulas_totais += lab.conta_pilulas();
+   //printf("%d\n", pilulas_totais);
 
-   while(true){ //Loop principal
+
+   while(roda_jogo){ //Loop principal
 
       ALLEGRO_EVENT event;
       al_wait_for_event(event_queue, &event); //esperar o evento
 
-      if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE){ // fechar janela clicando no x
+      switch (event.type) {
+      case ALLEGRO_EVENT_DISPLAY_CLOSE:
+         // fechar janela clicando no x
          break;
-      }else if(event.keyboard.keycode == ALLEGRO_KEY_RIGHT){
-         pac.setIntencao(DIREITA);
-
-
-      }else if(event.keyboard.keycode == ALLEGRO_KEY_LEFT){
-
-         pac.setIntencao(ESQUERDA);
-
-      
-
-      }else if(event.keyboard.keycode == ALLEGRO_KEY_DOWN){
-         pac.setIntencao(BAIXO);
-
-         
-
-      }else if(event.keyboard.keycode == ALLEGRO_KEY_UP){
-         pac.setIntencao(CIMA);
-
-
+      case ALLEGRO_EVENT_KEY_DOWN:
+         switch (event.keyboard.keycode) {
+            case ALLEGRO_KEY_RIGHT:
+            pac.setIntencao(DIREITA);
+            break;
+            case ALLEGRO_KEY_LEFT:
+            pac.setIntencao(ESQUERDA);
+            break;
+            case ALLEGRO_KEY_DOWN:
+            pac.setIntencao(BAIXO);
+            break;
+            case ALLEGRO_KEY_UP:
+            pac.setIntencao(CIMA);
+            break;
+         }
+         break;
       }
+
       //int indiceX = (pac.getPos_x()/ALTURA_PACMAN);
       //int indiceY = (pac.getPos_y()/ALTURA_PACMAN);
-
       pac.move_jogador(lab);
-      pac.coleta_pilula(&lab);
+      placar += pac.coleta_pilula(&lab);
       lab.exibir_pilulas();
       pac.exibe_pacman();
-
-      imprime_matriz_colisao(lab);
-
-
-
+      sprintf(texto, "PLACAR %d", placar);
+      // Desenhe o texto no display
+      al_draw_text(font, textColor, 361, 0, ALLEGRO_ALIGN_CENTER, texto);
+      // imprime_matriz_colisao(lab);
       al_flip_display();    
       lab.exibir_labirinto();
-
-
-
+      if(placar == pilulas_totais){
+         printf("PARABENS, VOCE VENCEU !!!!\n\n");
+         roda_jogo = false;
+      }
 
    }
 
