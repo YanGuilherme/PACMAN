@@ -21,6 +21,7 @@
 #define ALTURA_PACMAN 38
 #define LARGURA_PACMAN 38
 #define SEM_INTENCAO 6
+#define FATOR_PIXEL 5
 
 
 class Pacman{
@@ -61,16 +62,10 @@ class Pacman{
 
         int colidiu_esquerda_tijolo(Labirinto lab);
 
-
         int colidiu_baixo_tijolo(Labirinto lab);
-
-
 
         int colidiu_cima_tijolo(Labirinto lab);
 
-        
-        
-   
         //variaveis para a movimentacao do pacman;
         int pos_x = (LARGURA_TABULEIRO/2-(LARGURA_PACMAN/2)), pos_y = ((ALTURA_TABULEIRO/2-(ALTURA_PACMAN/2))+ALTURA_PACMAN);
         int current_frame_y = 0;

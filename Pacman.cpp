@@ -9,10 +9,11 @@
 using namespace std;
 
 int Pacman::colidiu_direita_tijolo(Labirinto lab){ 
-   int indiceX, indiceY;
-   indiceX = (pos_x/ALTURA_PACMAN)+1;
-   indiceY = (pos_y/ALTURA_PACMAN);
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO){
+   int indiceX, indiceY1, indiceY2;
+   indiceX = ((pos_x + LARGURA_PACMAN)/LARGURA_PACMAN);
+   indiceY1 = (pos_y/ALTURA_PACMAN);
+   indiceY2 = ((pos_y + ALTURA_PACMAN - FATOR_PIXEL)/ALTURA_PACMAN);
+   if(lab.matriz_colisao[indiceY1][indiceX] == TIJOLO || lab.matriz_colisao[indiceY2][indiceX] == TIJOLO){
       return PARADO;
    }
    return DIREITA;
@@ -20,12 +21,12 @@ int Pacman::colidiu_direita_tijolo(Labirinto lab){
 
 
 int Pacman::colidiu_esquerda_tijolo(Labirinto lab){ 
-   int indiceX, indiceY;
-   indiceX = (pos_x-5)/(LARGURA_PACMAN);
-   indiceY = (pos_y)/ALTURA_PACMAN;
+   int indiceX, indiceY1, indiceY2;
+   indiceX = (pos_x - FATOR_PIXEL)/(LARGURA_PACMAN);
+   indiceY1 = (pos_y + ALTURA_PACMAN - FATOR_PIXEL)/ALTURA_PACMAN;
+   indiceY2 = (pos_y)/ALTURA_PACMAN;
    
-
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
+   if(lab.matriz_colisao[indiceY1][indiceX] == TIJOLO || lab.matriz_colisao[indiceY2][indiceX] == TIJOLO){
       return PARADO;
    }
    return ESQUERDA;
@@ -33,10 +34,12 @@ int Pacman::colidiu_esquerda_tijolo(Labirinto lab){
 
 
 int Pacman::colidiu_baixo_tijolo(Labirinto lab){ 
-   int indiceX, indiceY;
-   indiceX = (pos_x/ALTURA_PACMAN);
-   indiceY= (pos_y/ALTURA_PACMAN)+1;
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
+   int indiceX1, indiceX2, indiceY;
+   indiceX1 = ((pos_x)/LARGURA_PACMAN);
+   indiceX2 = ((pos_x + LARGURA_PACMAN - FATOR_PIXEL)/LARGURA_PACMAN);
+   indiceY = ((pos_y + ALTURA_PACMAN)/ALTURA_PACMAN);
+
+   if(lab.matriz_colisao[indiceY][indiceX1] == TIJOLO || lab.matriz_colisao[indiceY][indiceX2] == TIJOLO  ){
       return PARADO;
    }
    return BAIXO;
@@ -44,11 +47,12 @@ int Pacman::colidiu_baixo_tijolo(Labirinto lab){
 
 
 int Pacman::colidiu_cima_tijolo(Labirinto lab){ 
-   int indiceX, indiceY;
-   indiceX = ((pos_x)/ALTURA_PACMAN);
-   indiceY= ((pos_y-5)/ALTURA_PACMAN);
+   int indiceX1, indiceX2, indiceY;
+   indiceX1 = ((pos_x)/LARGURA_PACMAN);
+   indiceX2 = ((pos_x + LARGURA_PACMAN - FATOR_PIXEL)/LARGURA_PACMAN);
+   indiceY = ((pos_y - FATOR_PIXEL)/ALTURA_PACMAN);
 
-   if(lab.matriz_colisao[(int)indiceY][(int)indiceX] == TIJOLO ){
+   if(lab.matriz_colisao[indiceY][indiceX1] == TIJOLO || lab.matriz_colisao[indiceY][indiceX2] == TIJOLO  ){
       return PARADO;
    }
    return CIMA;

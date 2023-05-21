@@ -15,20 +15,16 @@ using namespace std;
 void imprime_matriz_colisao(Labirinto lab){
    for(int i = 0 ; i<ORDEM ; i++){
       for(int j = 0 ; j <ORDEM; j++){
-            printf("%d", lab.matriz_colisao[i][j]);
+            printf("%d ", lab.matriz_colisao[i][j]);
       }
          printf("\n");
    }
-
-}
-
-void atualiza_placar(){
+   printf("\n");
 
 }
 
 int main(){
 
-   bool roda_jogo = true;
    ListaCoordenadas lc;
    Pacman pac;
    Labirinto lab = Labirinto();
@@ -80,7 +76,7 @@ int main(){
    //printf("%d\n", pilulas_totais);
 
 
-   while(roda_jogo){ //Loop principal
+   while(true){ //Loop principal
 
       ALLEGRO_EVENT event;
       al_wait_for_event(event_queue, &event); //esperar o evento
@@ -121,7 +117,7 @@ int main(){
       lab.exibir_labirinto();
       if(placar == pilulas_totais){
          printf("PARABENS, VOCE VENCEU !!!!\n\n");
-         roda_jogo = false;
+         break;
       }
 
    }
