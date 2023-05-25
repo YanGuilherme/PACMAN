@@ -112,7 +112,7 @@ int main(){
       sprintf(texto, "PLACAR %d", placar);
       // Desenhe o texto no display
       al_draw_text(font, textColor, 361, 0, ALLEGRO_ALIGN_CENTER, texto);
-      // imprime_matriz_colisao(lab);
+      imprime_matriz_colisao(lab);
       al_flip_display();    
       lab.exibir_labirinto();
       if(placar == pilulas_totais){
