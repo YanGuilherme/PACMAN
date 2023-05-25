@@ -61,15 +61,15 @@ void Labirinto::exibir_pilulas(){
 }
 
 int Labirinto::conta_pilulas(){
-    int temp = 0;
+    int total = 0;
     for(int i = 0 ; i<ORDEM ; i++){
        for(int j = 0 ; j <ORDEM; j++){
             if(matriz_colisao[i][j] == PILULA){
-                temp++;
+                total++;
             }
       }
    }
-    return temp;
+    return total;
 
 }
 void Labirinto::carregarPosicaoDasPilulas(){

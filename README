@@ -1,5 +1,10 @@
 Comandos para jogar:
 
+Linux:
+1. rode o comando ./run.sh
+
+Se não funcionar, compile os arquivos e execute o jogo manualmente seguindo esses passos:
+
 1. Compile os arquivos usando o Makefile
 comando: make (no terminal)
 
