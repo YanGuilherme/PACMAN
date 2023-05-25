@@ -105,10 +105,10 @@ int main(){
 
       //int indiceX = (pac.getPos_x()/ALTURA_PACMAN);
       //int indiceY = (pac.getPos_y()/ALTURA_PACMAN);
-      pac.move_jogador(lab);
+      pac.move_personagem(lab);
       placar += pac.coleta_pilula(&lab);
       lab.exibir_pilulas();
-      pac.exibe_pacman();
+      pac.exibe_personagem();
       sprintf(texto, "PLACAR %d", placar);
       // Desenhe o texto no display
       al_draw_text(font, textColor, 361, 0, ALLEGRO_ALIGN_CENTER, texto);
@@ -125,7 +125,7 @@ int main(){
    al_rest(1.0); //atrasar a movimentacao   
    al_destroy_display(display); //Destroi a tela
    al_destroy_event_queue(event_queue);//destroi fila de eventos
-   al_destroy_bitmap(pac.sprite_pacman); //destoi imagem do pacman
+   al_destroy_bitmap(pac.sprite_personagem); //destoi imagem do pacman
    al_destroy_bitmap(lab.mapa_desenho); //destroi fundo
    al_uninstall_keyboard(); //desinstalar o teclado
 
