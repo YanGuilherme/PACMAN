@@ -9,23 +9,15 @@
 #define PACMAN_H
 
 
-#define DESLOCAMENTO 5
-#define PARADO 0
-#define CIMA 1
-#define DIREITA 2
-#define BAIXO 3
-#define ESQUERDA 4
-#define ALTURA_TABULEIRO 722
-#define LARGURA_TABULEIRO 722
-#define MARGEM 38
-#define ALTURA_PACMAN 38
-#define LARGURA_PACMAN 38
-#define SEM_INTENCAO 6
-#define FATOR_PIXEL 5
-
 class Pacman:public Personagem{
     public:
+        Pacman();
         int coleta_pilula(Labirinto  *lab);
+        void exibe_pacman();
+        void altera_frame_pacman();
+        void move_pacman(Labirinto lab);
+
+
 
 };
 

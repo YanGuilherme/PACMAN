@@ -58,73 +58,7 @@ int Personagem::colidiu_cima_tijolo(Labirinto lab){
    return CIMA;
 }
 
-void Personagem::exibe_personagem(){
-    sprite_personagem = al_load_bitmap("./imagenstrab/sprites2.png");
-    al_draw_bitmap_region(sprite_personagem, LARGURA_PACMAN*(int)frame, current_frame_y, LARGURA_PACMAN, ALTURA_PACMAN, pos_x ,pos_y,0);
-    altera_frame();
-}
 
-void Personagem::move_personagem(Labirinto lab){
-
-   if(intencao == SEM_INTENCAO && direcao == PARADO){ 
-      return;
-   }
-
-   if(intencao == DIREITA && colidiu_direita_tijolo(lab)){
-      direcao = intencao;
-   }
-
-   if(intencao == ESQUERDA && colidiu_esquerda_tijolo(lab)){
-      direcao = intencao;
-   }
-   
-   if(intencao == CIMA && colidiu_cima_tijolo(lab)){
-      direcao = intencao;
-   }
-
-   if(intencao == BAIXO && colidiu_baixo_tijolo(lab)){
-      direcao = intencao;
-   }
-   
-   if(direcao == DIREITA){
-      direcao = colidiu_direita_tijolo(lab); 
-      if(direcao  != PARADO){
-         current_frame_y = 0;
-         pos_x+=DESLOCAMENTO;
-      }
-
-   }else if(direcao == ESQUERDA){
-      direcao =colidiu_esquerda_tijolo(lab);
-      if(direcao != PARADO){
-         current_frame_y = ALTURA_PACMAN;
-         pos_x-= DESLOCAMENTO;
-      }
-
-
-   }else if(direcao == BAIXO){
-      direcao =colidiu_baixo_tijolo(lab);
-      if(direcao != PARADO){
-         current_frame_y = ALTURA_PACMAN*3;
-         pos_y+=DESLOCAMENTO;
-      }
-
-
-   }else if(direcao == CIMA){
-      direcao = colidiu_cima_tijolo(lab);
-      if(direcao != PARADO) {
-         current_frame_y = ALTURA_PACMAN*2;
-         pos_y-= DESLOCAMENTO;
-      }
-
-   }
-}
-
-void Personagem::altera_frame(){
-      frame += 0.2f;
-      if(frame > 2){
-         frame -= 2;
-      }
-}
 
 int Personagem::getPos_x(){
     return pos_x;

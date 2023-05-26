@@ -47,7 +47,7 @@ void Labirinto::exibir_pilulas(){
     int indiceX;
     int indiceY;
     
-    pilula_desenho = al_load_bitmap("./imagenstrab/sprite_pilula.png");
+    pilula_desenho = al_load_bitmap("./imagenstrab/sprite_pilula2.png");
     for(Coordenada& coordenada : coordenadas_pilulas){
         if(matriz_colisao[coordenada.getY()][coordenada.getX()] == PILULA){
             indiceX = coordenada.getX();
@@ -84,9 +84,9 @@ void Labirinto::carregarPosicaoDasPilulas(){
 }
 
 void Labirinto::altera_frame_pilula(){
-      frame_pilula += 0.2f;
-      if(frame_pilula > 5){
-         frame_pilula -= 5;
+      frame_pilula += 0.1f;
+      if(frame_pilula > 6){
+         frame_pilula -= 6;
       }
 }
 

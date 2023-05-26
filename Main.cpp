@@ -7,9 +7,38 @@
 #include <allegro5/allegro_ttf.h>
 #include "Pacman.h"
 #include "Labirinto.h"
+#include "Fantasma.h"
 
 using namespace std;
 
+
+bool kill_pacman(Pacman pac, Fantasma ghost1, Fantasma ghost2,Fantasma ghost3,Fantasma ghost4){
+   int indiceX[5];
+   int indiceY[5];
+   indiceX[0] = (pac.getPos_x()+(TAM_LADO/2))/TAM_LADO;
+   indiceY[0] = (pac.getPos_y()+(TAM_LADO/2))/TAM_LADO;
+
+   indiceX[1] = (ghost1.getPos_x()+(TAM_LADO/2))/TAM_LADO;
+   indiceY[1] = (ghost1.getPos_y()+(TAM_LADO/2))/TAM_LADO;
+   indiceX[2] = (ghost2.getPos_x()+(TAM_LADO/2))/TAM_LADO;
+   indiceY[2] = (ghost2.getPos_y()+(TAM_LADO/2))/TAM_LADO;
+   indiceX[3] = (ghost3.getPos_x()+(TAM_LADO/2))/TAM_LADO;
+   indiceY[3] = (ghost3.getPos_y()+(TAM_LADO/2))/TAM_LADO;
+   indiceX[4] = (ghost4.getPos_x()+(TAM_LADO/2))/TAM_LADO;
+   indiceY[4] = (ghost4.getPos_y()+(TAM_LADO/2))/TAM_LADO;
+
+   for(int i = 1 ; i < 5 ; i++){
+      for(int j = 1 ; j < 5 ; j++){
+         if(indiceX[0] == indiceX[i] && indiceY[0] == indiceY[i]){
+            return true;
+         }
+      }
+   }
+   return false;
+
+
+   // cout << indiceX[0] << endl << indiceY[0] << endl;
+}
 
 
 void imprime_matriz_colisao(Labirinto lab){
@@ -30,7 +59,7 @@ int main(){
    Labirinto lab = Labirinto();
    int placar = 0;
    int pilulas_totais = 0;
-
+   Fantasma ghost1(1), ghost2(2), ghost3(3), ghost4(4);
    char texto[50];
 
     //Inicializacao dos serviços basicos
@@ -74,8 +103,6 @@ int main(){
 
    pilulas_totais += lab.conta_pilulas();
    //printf("%d\n", pilulas_totais);
-
-
    while(true){ //Loop principal
 
       ALLEGRO_EVENT event;
@@ -105,24 +132,41 @@ int main(){
 
       //int indiceX = (pac.getPos_x()/ALTURA_PACMAN);
       //int indiceY = (pac.getPos_y()/ALTURA_PACMAN);
-      pac.move_personagem(lab);
+      pac.move_pacman(lab);
       placar += pac.coleta_pilula(&lab);
       lab.exibir_pilulas();
-      pac.exibe_personagem();
+      pac.exibe_pacman();
       sprintf(texto, "PLACAR %d", placar);
+      ghost1.exibe_fantasma();
+      ghost1.move_fantasma(lab);
+      ghost2.exibe_fantasma();
+      ghost2.move_fantasma(lab);
+      ghost3.exibe_fantasma();
+      ghost3.move_fantasma(lab);
+      ghost4.exibe_fantasma();
+      ghost4.move_fantasma(lab);
+
+
+
+
+
       // Desenhe o texto no display
       al_draw_text(font, textColor, 361, 0, ALLEGRO_ALIGN_CENTER, texto);
-      imprime_matriz_colisao(lab);
+      //imprime_matriz_colisao(lab);
       al_flip_display();    
       lab.exibir_labirinto();
       if(placar == pilulas_totais){
          printf("PARABENS, VOCE VENCEU !!!!\n\n");
+         break;
+      }else if(kill_pacman(pac,ghost1,ghost2,ghost3,ghost4)){
+         printf("VOCE PERDEU !!!!\n\n");
          break;
       }
 
    }
 
    al_rest(1.0); //atrasar a movimentacao   
+   al_destroy_font(font);
    al_destroy_display(display); //Destroi a tela
    al_destroy_event_queue(event_queue);//destroi fila de eventos
    al_destroy_bitmap(pac.sprite_personagem); //destoi imagem do pacman

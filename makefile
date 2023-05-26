@@ -4,7 +4,7 @@ CXXFLAGS = -Wall -g
 LIBS = -lallegro -lallegro_image -lallegro_font -lallegro_ttf
 
 # Listas de arquivos
-SRC_FILES = Main.cpp Coordenada.cpp Labirinto.cpp Personagem.cpp Pacman.cpp ListaCoordenadas.cpp
+SRC_FILES = Main.cpp Coordenada.cpp Labirinto.cpp Personagem.cpp Pacman.cpp ListaCoordenadas.cpp Fantasma.cpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
 # Regras de construção
