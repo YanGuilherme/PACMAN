@@ -11,6 +11,24 @@
 
 using namespace std;
 
+// void direct_chase(Pacman pac, Fantasma ghost1){
+//    float diferenca_x = pac.getPos_x() - ghost1.getPos_x();
+//    float diferenca_y = pac.getPos_y() - ghost1.getPos_y();
+//    if (abs(diferenca_x) > abs(diferenca_y)) {
+//     if (diferenca_x > 0) {
+//         ghost1.setIntencao(DIREITA);
+//     } else {
+//         ghost1.setIntencao(ESQUERDA);
+//     }
+//    } else {
+//     if (diferenca_y > 0) {
+//         ghost1.setIntencao(BAIXO);
+//     } else {
+//         ghost1.setIntencao(CIMA);
+//     }
+//    }
+// }
+
 
 bool colisao_com_fantasma(Pacman pac, Fantasma ghost1, Fantasma ghost2,Fantasma ghost3,Fantasma ghost4){
    int indiceX[5];
@@ -26,7 +44,7 @@ bool colisao_com_fantasma(Pacman pac, Fantasma ghost1, Fantasma ghost2,Fantasma 
    indiceY[3] = (ghost3.getPos_y()+(TAM_LADO/2))/TAM_LADO;
    indiceX[4] = (ghost4.getPos_x()+(TAM_LADO/2))/TAM_LADO;
    indiceY[4] = (ghost4.getPos_y()+(TAM_LADO/2))/TAM_LADO;
-
+   
    for(int i = 1 ; i < 5 ; i++){
       for(int j = 1 ; j < 5 ; j++){
          if(indiceX[0] == indiceX[i] && indiceY[0] == indiceY[i]){
@@ -59,8 +77,10 @@ int main(){
    Labirinto lab = Labirinto();
    int placar = 0;
    int pilulas_totais = 0;
-   Fantasma ghost1(1), ghost2(2), ghost3(3), ghost4(4);
+   Fantasma ghost1(1);
+   Fantasma ghost2(2), ghost3(3), ghost4(4);
    char texto[50];
+   bool tecla_pressionada = false;
 
     //Inicializacao dos serviços basicos
    al_init();
@@ -116,16 +136,24 @@ int main(){
          switch (event.keyboard.keycode) {
             case ALLEGRO_KEY_RIGHT:
             pac.setIntencao(DIREITA);
+            tecla_pressionada = true;
             break;
             case ALLEGRO_KEY_LEFT:
             pac.setIntencao(ESQUERDA);
+            tecla_pressionada = true;
             break;
             case ALLEGRO_KEY_DOWN:
             pac.setIntencao(BAIXO);
+            tecla_pressionada = true;
             break;
             case ALLEGRO_KEY_UP:
             pac.setIntencao(CIMA);
+            tecla_pressionada = true;
             break;
+         }
+         if(tecla_pressionada){
+            al_rest(0.05);
+
          }
          break;
       }
@@ -138,7 +166,8 @@ int main(){
       pac.exibe_pacman();
       sprintf(texto, "PLACAR %d", placar);
       ghost1.exibe_fantasma();
-      ghost1.move_fantasma(lab);
+      // direct_chase(pac,ghost1);
+      ghost1.move_fantasma_perseguicao(lab, pac);
       ghost2.exibe_fantasma();
       ghost2.move_fantasma(lab);
       ghost3.exibe_fantasma();

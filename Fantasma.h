@@ -13,7 +13,7 @@ class Fantasma: public Personagem{
         void exibe_fantasma();
         void altera_frame_fantasma();
         void move_fantasma(Labirinto lab);
-
+        void move_fantasma_perseguicao(Labirinto lab, Pacman);
     private:
         int num_possibilidades(Labirinto lab);
 

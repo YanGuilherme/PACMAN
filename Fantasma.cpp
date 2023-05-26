@@ -1,4 +1,5 @@
 #include "Fantasma.h"
+#include "Pacman.h"
 
 Fantasma::Fantasma(){
 }
@@ -90,6 +91,83 @@ void Fantasma::move_fantasma(Labirinto lab){
     if(direcao == PARADO){
         intencao = randomNumber;
     }
+
+   if(intencao == SEM_INTENCAO && direcao == PARADO){ 
+      return;
+   }
+
+   if(intencao == DIREITA && colidiu_direita_tijolo(lab)){
+      direcao = intencao;
+   }
+
+   if(intencao == ESQUERDA && colidiu_esquerda_tijolo(lab)){
+      direcao = intencao;
+   }
+   
+   if(intencao == CIMA && colidiu_cima_tijolo(lab)){
+      direcao = intencao;
+   }
+
+   if(intencao == BAIXO && colidiu_baixo_tijolo(lab)){
+      direcao = intencao;
+   }
+   
+   if(direcao == DIREITA){
+      direcao = colidiu_direita_tijolo(lab); 
+      if(direcao  != PARADO){
+         current_frame_y = 0;
+         pos_x+=DESLOCAMENTO;
+      }
+
+   }else if(direcao == ESQUERDA){
+      direcao =colidiu_esquerda_tijolo(lab);
+      if(direcao != PARADO){
+         current_frame_y = LADO_FANTASMA;
+         pos_x-= DESLOCAMENTO;
+      }
+
+
+   }else if(direcao == BAIXO){
+      direcao =colidiu_baixo_tijolo(lab);
+      if(direcao != PARADO){
+         current_frame_y = LADO_FANTASMA*3;
+         pos_y+=DESLOCAMENTO;
+      }
+
+
+   }else if(direcao == CIMA){
+      direcao = colidiu_cima_tijolo(lab);
+      if(direcao != PARADO) {
+         current_frame_y = LADO_FANTASMA*2;
+         pos_y-= DESLOCAMENTO;
+      }
+
+   }
+}
+
+void Fantasma::move_fantasma_perseguicao(Labirinto lab, Pacman pac){
+
+   float diferenca_x = pac.getPos_x() - pos_x;
+   float diferenca_y = pac.getPos_y() - pos_y;
+
+   if (abs(diferenca_x) > abs(diferenca_y)) {
+    if (diferenca_x > 0) {
+        intencao = DIREITA;
+    } else {
+        intencao = ESQUERDA;
+    }
+   } else {
+    if (diferenca_y > 0) {
+        intencao = BAIXO;
+    } else {
+        intencao = CIMA;
+    }
+   }
+
+        
+    // if(direcao == PARADO){
+    //     return;
+    // }
 
    if(intencao == SEM_INTENCAO && direcao == PARADO){ 
       return;
