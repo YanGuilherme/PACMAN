@@ -12,7 +12,7 @@
 using namespace std;
 
 
-bool kill_pacman(Pacman pac, Fantasma ghost1, Fantasma ghost2,Fantasma ghost3,Fantasma ghost4){
+bool colisao_com_fantasma(Pacman pac, Fantasma ghost1, Fantasma ghost2,Fantasma ghost3,Fantasma ghost4){
    int indiceX[5];
    int indiceY[5];
    indiceX[0] = (pac.getPos_x()+(TAM_LADO/2))/TAM_LADO;
@@ -158,7 +158,7 @@ int main(){
       if(placar == pilulas_totais){
          printf("PARABENS, VOCE VENCEU !!!!\n\n");
          break;
-      }else if(kill_pacman(pac,ghost1,ghost2,ghost3,ghost4)){
+      }else if(colisao_com_fantasma(pac,ghost1,ghost2,ghost3,ghost4)){
          printf("VOCE PERDEU !!!!\n\n");
          break;
       }
