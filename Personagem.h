@@ -10,7 +10,7 @@
 #ifndef PERSONAGEM_H
 #define PERSONAGEM_H
 
-#define DESLOCAMENTO 5
+// #define DESLOCAMENTO 5
 #define PARADO 0
 #define CIMA 1
 #define DIREITA 2
@@ -47,8 +47,9 @@ class Personagem{
 
 
 
-
     protected:
+        int DESLOCAMENTO;
+
         //variaveis para a movimentacao do pacman;
         int pos_x;
         int pos_y;

@@ -4,38 +4,40 @@
 Fantasma::Fantasma(){
 }
 
-Fantasma::Fantasma(int a)
-{
-    switch (a){
-    case 1:
-        pos_x = LADO_FANTASMA;
-        pos_y = LADO_FANTASMA;
+Fantasma::Fantasma(int a){
+   DESLOCAMENTO = 4;
+   switch (a){
+   case 1:
+      pos_x = LADO_FANTASMA;
+      pos_y = LADO_FANTASMA;
+      direcao = PARADO;
+      intencao = SEM_INTENCAO;
+      nome_imagem = "./imagenstrab/fantasma_vermelho.png";
+      break;
+   case 2:
+      pos_x = LADO_FANTASMA*17;
+      pos_y = LADO_FANTASMA;
+      direcao = PARADO;
+      intencao = SEM_INTENCAO;
+      nome_imagem =  "./imagenstrab/fantasma_rosa.png";
 
-        direcao = PARADO;
-        intencao = SEM_INTENCAO;
-        nome_imagem = "./imagenstrab/fantasma_vermelho.png";
-        break;
-    case 2:
-        pos_x = LADO_FANTASMA*17;
-        pos_y = LADO_FANTASMA;
-        direcao = PARADO;
-        intencao = SEM_INTENCAO;
-        nome_imagem =  "./imagenstrab/fantasma_rosa.png";
-        break;
-    case 3:
-        pos_x = LADO_FANTASMA;
-        pos_y = LADO_FANTASMA*17;
-        direcao = PARADO;
-        intencao = SEM_INTENCAO;
-        nome_imagem =  "./imagenstrab/fantasma_azul.png";
-        break;
-    case 4:
-        pos_x = LADO_FANTASMA*17;
-        pos_y = LADO_FANTASMA*17;
-        direcao = PARADO;
-        intencao = SEM_INTENCAO;
-        nome_imagem =  "./imagenstrab/fantasma_amarelo.png";
-        break;
+      break;
+   case 3:
+      pos_x = LADO_FANTASMA;
+      pos_y = LADO_FANTASMA*17;
+      direcao = PARADO;
+      intencao = SEM_INTENCAO;
+      nome_imagem =  "./imagenstrab/fantasma_azul.png";
+
+      break;
+   case 4:
+      pos_x = LADO_FANTASMA*17;
+      pos_y = LADO_FANTASMA*17;
+      direcao = PARADO;
+      intencao = SEM_INTENCAO;
+      nome_imagem =  "./imagenstrab/fantasma_amarelo.png";
+
+      break;
     
     default:
         break;

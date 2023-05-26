@@ -11,6 +11,7 @@ using namespace std;
 Pacman::Pacman(){
    pos_x = (LARGURA_TABULEIRO/2-(LARGURA_PACMAN/2));
    pos_y = ((ALTURA_TABULEIRO/2-(ALTURA_PACMAN/2))+ALTURA_PACMAN);
+   DESLOCAMENTO = 5;
 
    direcao = PARADO;
    intencao = SEM_INTENCAO;
