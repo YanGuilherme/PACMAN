@@ -13,4 +13,4 @@ comando: ./game (no terminal)
 
 3. Feche usando o x no canto superior direito da tela.
 
-4. Caso ocorra algum bug, feche e execute o jogo novamente.
+4. Caso ocorra algum bug, feche e execute o jogo novamente usando ./game.
