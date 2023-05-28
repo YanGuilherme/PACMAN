@@ -1,6 +1,10 @@
 #include "Fantasma.h"
 #include "Pacman.h"
 
+using namespace std;
+
+
+
 Fantasma::Fantasma(){
 }
 
@@ -69,9 +73,8 @@ int Fantasma::num_possibilidades(Labirinto lab){
 
 
 
-void Fantasma::move_fantasma(Labirinto lab){
-
-    std::random_device rd;
+void Fantasma::move_fantasma_random(Labirinto lab){
+   std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dis(1, 4);
 
@@ -86,9 +89,9 @@ void Fantasma::move_fantasma(Labirinto lab){
             ){
         
         intencao = randomNumber;
-        
         }        
-    } 
+    }
+
     
     if(direcao == PARADO){
         intencao = randomNumber;
@@ -147,7 +150,8 @@ void Fantasma::move_fantasma(Labirinto lab){
    }
 }
 
-void Fantasma::move_fantasma_perseguicao(Labirinto lab, Pacman pac){
+
+void Fantasma::direct_chase(Labirinto lab, Pacman pac){
 
    float diferenca_x = pac.getPos_x() - pos_x;
    float diferenca_y = pac.getPos_y() - pos_y;
@@ -221,5 +225,100 @@ void Fantasma::move_fantasma_perseguicao(Labirinto lab, Pacman pac){
          pos_y-= DESLOCAMENTO;
       }
 
+   }
+}
+
+   void Fantasma::vision_pursuit(Labirinto lab, Pacman pac){
+
+   std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dis(1, 4);
+
+    int randomNumber = dis(gen);
+
+    if(num_possibilidades(lab) > 2){
+        if(
+            (direcao == DIREITA && randomNumber != ESQUERDA )|| 
+            (direcao == ESQUERDA && randomNumber != DIREITA) ||
+            (direcao == CIMA && randomNumber != BAIXO) ||
+            (direcao == BAIXO && randomNumber != CIMA)
+            ){
+        
+        intencao = randomNumber;
+        }        
+   }
+   float diferenca_x = pac.getPos_x() - pos_x;
+   float diferenca_y = pac.getPos_y() - pos_y;
+   // cout << (int)(pac.getPos_x()/TAM_LADO) << (int)(pac.getPos_y()/TAM_LADO)  << endl  << pos_x/TAM_LADO << pos_y/TAM_LADO << endl; //visualizar indices
+   if ((int)(pac.getPos_x()/TAM_LADO) == (int)(pos_x/TAM_LADO)){
+    if (diferenca_y > 0) {
+        intencao = BAIXO;
+    } else {
+        intencao = CIMA;
+    }
+   } else if((int)(pac.getPos_y()/TAM_LADO) == (int)(pos_y/TAM_LADO)){
+    if (diferenca_x > 0) {
+        intencao = DIREITA;
+    } else {
+        intencao = ESQUERDA;
+    }
+   }else if(direcao == PARADO){
+      intencao = randomNumber;
+   }
+
+        
+    // if(direcao == PARADO){
+    //     return;
+    // }
+
+   if(intencao == SEM_INTENCAO && direcao == PARADO){ 
+      return;
+   }
+
+   if(intencao == DIREITA && colidiu_direita_tijolo(lab)){
+      direcao = intencao;
+   }
+
+   if(intencao == ESQUERDA && colidiu_esquerda_tijolo(lab)){
+      direcao = intencao;
+   }
+   
+   if(intencao == CIMA && colidiu_cima_tijolo(lab)){
+      direcao = intencao;
+   }
+
+   if(intencao == BAIXO && colidiu_baixo_tijolo(lab)){
+      direcao = intencao;
+   }
+   
+   if(direcao == DIREITA){
+      direcao = colidiu_direita_tijolo(lab); 
+      if(direcao  != PARADO){
+         current_frame_y = 0;
+         pos_x+=DESLOCAMENTO;
+      }
+
+   }else if(direcao == ESQUERDA){
+      direcao =colidiu_esquerda_tijolo(lab);
+      if(direcao != PARADO){
+         current_frame_y = LADO_FANTASMA;
+         pos_x-= DESLOCAMENTO;
+      }
+
+
+   }else if(direcao == BAIXO){
+      direcao =colidiu_baixo_tijolo(lab);
+      if(direcao != PARADO){
+         current_frame_y = LADO_FANTASMA*3;
+         pos_y+=DESLOCAMENTO;
+      }
+
+
+   }else if(direcao == CIMA){
+      direcao = colidiu_cima_tijolo(lab);
+      if(direcao != PARADO) {
+         current_frame_y = LADO_FANTASMA*2;
+         pos_y-= DESLOCAMENTO;
+      }
    }
 }

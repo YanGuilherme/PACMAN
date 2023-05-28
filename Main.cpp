@@ -11,25 +11,6 @@
 
 using namespace std;
 
-// void direct_chase(Pacman pac, Fantasma ghost1){
-//    float diferenca_x = pac.getPos_x() - ghost1.getPos_x();
-//    float diferenca_y = pac.getPos_y() - ghost1.getPos_y();
-//    if (abs(diferenca_x) > abs(diferenca_y)) {
-//     if (diferenca_x > 0) {
-//         ghost1.setIntencao(DIREITA);
-//     } else {
-//         ghost1.setIntencao(ESQUERDA);
-//     }
-//    } else {
-//     if (diferenca_y > 0) {
-//         ghost1.setIntencao(BAIXO);
-//     } else {
-//         ghost1.setIntencao(CIMA);
-//     }
-//    }
-// }
-
-
 bool colisao_com_fantasma(Pacman pac, Fantasma ghost1, Fantasma ghost2,Fantasma ghost3,Fantasma ghost4){
    int indiceX[5];
    int indiceY[5];
@@ -166,14 +147,13 @@ int main(){
       pac.exibe_pacman();
       sprintf(texto, "PLACAR %d", placar);
       ghost1.exibe_fantasma();
-      // direct_chase(pac,ghost1);
-      ghost1.move_fantasma_perseguicao(lab, pac);
+      ghost1.vision_pursuit(lab, pac);
       ghost2.exibe_fantasma();
-      ghost2.move_fantasma(lab);
+      ghost2.vision_pursuit(lab, pac);
       ghost3.exibe_fantasma();
-      ghost3.move_fantasma(lab);
+      ghost3.vision_pursuit(lab, pac);
       ghost4.exibe_fantasma();
-      ghost4.move_fantasma(lab);
+      ghost4.vision_pursuit(lab, pac);
 
 
 
