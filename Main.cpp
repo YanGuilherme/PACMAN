@@ -141,23 +141,19 @@ int main(){
 
       //int indiceX = (pac.getPos_x()/ALTURA_PACMAN);
       //int indiceY = (pac.getPos_y()/ALTURA_PACMAN);
-      pac.move_pacman(lab);
       placar += pac.coleta_pilula(&lab);
       lab.exibir_pilulas();
       pac.exibe_pacman();
+      pac.move_pacman(lab);
       sprintf(texto, "PLACAR %d", placar);
       ghost1.exibe_fantasma();
-      ghost1.vision_pursuit(lab, pac);
+      ghost1.move_fantasma_random(lab);
       ghost2.exibe_fantasma();
-      ghost2.vision_pursuit(lab, pac);
+      ghost2.move_fantasma_random(lab);
       ghost3.exibe_fantasma();
-      ghost3.vision_pursuit(lab, pac);
+      ghost3.move_fantasma_random(lab);
       ghost4.exibe_fantasma();
-      ghost4.vision_pursuit(lab, pac);
-
-
-
-
+      ghost4.move_fantasma_random(lab);
 
       // Desenhe o texto no display
       al_draw_text(font, textColor, 361, 0, ALLEGRO_ALIGN_CENTER, texto);
