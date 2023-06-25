@@ -71,8 +71,6 @@ int Fantasma::num_possibilidades(Labirinto lab){
     return cont;
 }
 
-
-
 void Fantasma::move_fantasma_random(Labirinto lab){
    std::random_device rd;
     std::mt19937 gen(rd());
@@ -250,13 +248,13 @@ void Fantasma::direct_chase(Labirinto lab, Pacman pac){
    float diferenca_x = pac.getPos_x() - pos_x;
    float diferenca_y = pac.getPos_y() - pos_y;
    // cout << (int)(pac.getPos_x()/TAM_LADO) << (int)(pac.getPos_y()/TAM_LADO)  << endl  << pos_x/TAM_LADO << pos_y/TAM_LADO << endl; //visualizar indices
-   if ((int)(pac.getPos_x()/TAM_LADO) == (int)(pos_x/TAM_LADO)){
+   if (((int)(pac.getPos_x()/TAM_LADO) == (int)(pos_x/TAM_LADO))&& direcao != PARADO){
     if (diferenca_y > 0) {
         intencao = BAIXO;
     } else {
         intencao = CIMA;
     }
-   } else if((int)(pac.getPos_y()/TAM_LADO) == (int)(pos_y/TAM_LADO)){
+   } else if(((int)(pac.getPos_y()/TAM_LADO) == (int)(pos_y/TAM_LADO))&& direcao != PARADO){
     if (diferenca_x > 0) {
         intencao = DIREITA;
     } else {

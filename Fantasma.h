@@ -19,9 +19,6 @@ class Fantasma: public Personagem{
 
     private:
         int num_possibilidades(Labirinto lab);
-        int retorna_intencao(Labirinto lab);
-        // bool matou_pacman();
-        // float frame_fantasma;
 
 };
 

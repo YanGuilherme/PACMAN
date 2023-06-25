@@ -26,7 +26,7 @@ void Labirinto::exibir_labirinto(){
 
 void Labirinto::carregarPosicaoDosTijolos(){
     int x, y;
-    FILE* arquivoDoLabirinto = fopen(this->nome_arquivo, "r");
+    FILE* arquivoDoLabirinto = fopen("./imagenstrab/coordenadas.txt", "r");
     if(arquivoDoLabirinto == NULL){
         printf("Erro em abrir o arquivo de posição dos tijolos!");
         exit(1);

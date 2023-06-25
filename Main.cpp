@@ -60,7 +60,7 @@ int main(){
    int pilulas_totais = 0;
    Fantasma ghost1(1);
    Fantasma ghost2(2), ghost3(3), ghost4(4);
-   char texto[50];
+   char texto[50], texto2[50];
    bool tecla_pressionada = false;
 
     //Inicializacao dos serviços basicos
@@ -80,7 +80,9 @@ int main(){
 
 
    // Defina a cor do texto
-   ALLEGRO_COLOR textColor = al_map_rgb(85,255,249);
+   ALLEGRO_COLOR textColor = al_map_rgb (255, 140, 0);
+   ALLEGRO_COLOR textColor2 = al_map_rgb (255, 248, 220);
+
 
    // carrega_display(display);
    display = al_create_display(LARGURA_TABULEIRO,ALTURA_TABULEIRO); //Inicializacao do display
@@ -98,7 +100,7 @@ int main(){
    pac.setDirecao(PARADO);
 
 
-   lab.setNome_arquivo("./imagenstrab/coordenadas.txt");
+   //lab.setNome_arquivo("./imagenstrab/coordenadas.txt");
    lab.carregarPosicaoDosTijolos();
    lab.carregarPosicaoDasPilulas();
 
@@ -146,17 +148,20 @@ int main(){
       pac.exibe_pacman();
       pac.move_pacman(lab);
       sprintf(texto, "PLACAR %d", placar);
+      sprintf(texto2,"TOTAL %d", pilulas_totais);
       ghost1.exibe_fantasma();
-      ghost1.move_fantasma_random(lab);
+      ghost1.vision_pursuit(lab,pac);
       ghost2.exibe_fantasma();
-      ghost2.move_fantasma_random(lab);
+      ghost2.vision_pursuit(lab,pac);
       ghost3.exibe_fantasma();
-      ghost3.move_fantasma_random(lab);
+      ghost3.vision_pursuit(lab,pac);
       ghost4.exibe_fantasma();
-      ghost4.move_fantasma_random(lab);
+      ghost4.vision_pursuit(lab,pac);
 
       // Desenhe o texto no display
-      al_draw_text(font, textColor, 361, 0, ALLEGRO_ALIGN_CENTER, texto);
+      al_draw_text(font, textColor, 240, 0, ALLEGRO_ALIGN_CENTER, texto);
+      al_draw_text(font, textColor2, 480, 0, ALLEGRO_ALIGN_CENTER, texto2);
+
       //imprime_matriz_colisao(lab);
       al_flip_display();    
       lab.exibir_labirinto();

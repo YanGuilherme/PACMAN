@@ -1,0 +1,24 @@
+Estratégia de perseguição Trabalho PACMAN - Orientação a Objetos
+
+A estratégia de perseguição se baseia em seguir o PACMAN desde que ele esteja na mesma linha ou coluna do PACMAN. 
+Se o Fantasma nao estiver em uma linha ou coluna que o PACMAN esteja, a direcao que o Fantasma tomará se baseia em uma das direcões decididas aleatoriamente.
+A ideia da estratégia é como se o Fantasma estivesse "vendo" o PACMAN, mas não podemos afirmar isso, porque ele enxerga através das paredes.
+
+   if (((int)(pac.getPos_x()/TAM_LADO) == (int)(pos_x/TAM_LADO))&& direcao != PARADO){
+   
+ Neste if, comparamos os indices do PACMAN e do Fantasma em ação. Calculamos o indice dividindo a posicao do Personagem (Pacman ou Fantasma) na tela, pelo Lado da figura.
+ Se acontecer dos indices serem iguais, o Fantasma irá automaticamente em direcao ao Pacman, no caso da linha de codigo acima estamos na horizontal, então se estão no mesmo eixo X, o Fantasma irá percorrer no eixo Y.
+ Comparamos também se o Pacman está parado pois pode ocorrer do Fantasma estar na mesma linha ou coluna do Pacman mas encostado em uma parede (o que nao possibilita sua movimentação).
+ 
+ Se a condicao && do if for atendida ocorre: 
+ 
+     if (diferenca_y > 0) {
+        intencao = BAIXO;
+    } else {
+        intencao = CIMA;
+    }
+    
+Como citado anteriormente, para a perseguição acontecer no eixo Y (para cima e para baixo), precisamos estar no mesmo eixo X. Isso ocorre invertidamente para percorrer para esquerda ou direita.
+Setamos a intencao e depois movimentamos o Fantasma em direcao ao Pacman.
+
+Umas das maneiras de enganar os fantasmas é abusar dos movimentos curtos enquanto o Fantasma está andando cercado de paredes (impossibilitado de movimentar). Isso nao entrega sua posiçao e assim poderá seguir seu caminho.
