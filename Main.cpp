@@ -8,6 +8,9 @@
 #include "Pacman.h"
 #include "Labirinto.h"
 #include "Fantasma.h"
+#include <chrono>
+#include <thread>
+#include <fstream>
 
 using namespace std;
 
@@ -51,7 +54,15 @@ void imprime_matriz_colisao(Labirinto lab){
 
 }
 
+// Função para obter o tempo atual em segundos
+double getTempoAtual() {
+    auto agora = std::chrono::steady_clock::now();
+    std::chrono::duration<double> duracao = agora.time_since_epoch();
+    return duracao.count();
+}
+
 int main(){
+   
 
    ListaCoordenadas lc;
    Pacman pac;
@@ -60,8 +71,21 @@ int main(){
    int pilulas_totais = 0;
    Fantasma ghost1(1);
    Fantasma ghost2(2), ghost3(3), ghost4(4);
-   char texto[50], texto2[50];
+   char texto[50], texto2[50], texto3[50];
+   char linha_arquivo[30];
    bool tecla_pressionada = false;
+   double fim;
+   char nome[50];
+   cout << "Digite seu primeiro nome: ";
+   cin >> nome;   
+   double inicio = getTempoAtual();
+   double duracao;
+
+   double tempo_salvo;
+   FILE* arquivo = fopen("livro_recordes.txt", "r");
+   fscanf(arquivo,"%lf-%s", &tempo_salvo, linha_arquivo);
+   // fscanf(arquivo, "%s", &linha_arquivo);
+   fclose(arquivo);
 
     //Inicializacao dos serviços basicos
    al_init();
@@ -77,11 +101,15 @@ int main(){
 
    // Carregando fonte especifica
    ALLEGRO_FONT *font = al_load_font("./imagenstrab/fonte_jogo.ttf", 40, 0);
+   ALLEGRO_FONT *font2 = al_load_font("./imagenstrab/fonte_jogo.ttf", 30, 0);
+
 
 
    // Defina a cor do texto
    ALLEGRO_COLOR textColor = al_map_rgb (255, 140, 0);
    ALLEGRO_COLOR textColor2 = al_map_rgb (255, 248, 220);
+   ALLEGRO_COLOR textColor3 = al_map_rgb 	(0,255,0);
+
 
 
    // carrega_display(display);
@@ -103,11 +131,9 @@ int main(){
    //lab.setNome_arquivo("./imagenstrab/coordenadas.txt");
    lab.carregarPosicaoDosTijolos();
    lab.carregarPosicaoDasPilulas();
-
    pilulas_totais += lab.conta_pilulas();
    //printf("%d\n", pilulas_totais);
    while(true){ //Loop principal
-
       ALLEGRO_EVENT event;
       al_wait_for_event(event_queue, &event); //esperar o evento
 
@@ -149,6 +175,7 @@ int main(){
       pac.move_pacman(lab);
       sprintf(texto, "PLACAR %d", placar);
       sprintf(texto2,"TOTAL %d", pilulas_totais);
+      sprintf(texto3,"RECORDE: %lf - %s", tempo_salvo, linha_arquivo);
       ghost1.exibe_fantasma();
       ghost1.vision_pursuit(lab,pac);
       ghost2.exibe_fantasma();
@@ -161,12 +188,16 @@ int main(){
       // Desenhe o texto no display
       al_draw_text(font, textColor, 240, 0, ALLEGRO_ALIGN_CENTER, texto);
       al_draw_text(font, textColor2, 480, 0, ALLEGRO_ALIGN_CENTER, texto2);
+      al_draw_text(font2, textColor3, 361, 347, ALLEGRO_ALIGN_CENTER, texto3);
 
       //imprime_matriz_colisao(lab);
       al_flip_display();    
       lab.exibir_labirinto();
       if(placar == pilulas_totais){
          printf("PARABENS, VOCE VENCEU !!!!\n\n");
+         fim = getTempoAtual();
+         duracao = fim - inicio;
+
          break;
       }else if(colisao_com_fantasma(pac,ghost1,ghost2,ghost3,ghost4)){
          printf("VOCE PERDEU !!!!\n\n");
@@ -174,7 +205,22 @@ int main(){
       }
 
    }
+      if(duracao < tempo_salvo && placar == pilulas_totais){
+      cout << "NOVO RECORDE!! ABRA O JOGO NOVAMENTE PARA CONFERIR" << endl;
+      arquivo = fopen("livro_recordes.txt", "w");
+      if(arquivo != nullptr){
+      sprintf(texto3, "%lf", duracao);
+      fprintf(arquivo, "%s", texto3); 
+      fprintf(arquivo, "-");
+      fprintf(arquivo, "%s", nome);
+      fclose(arquivo);
+      cout << "Arquivo salvo com sucesso." << endl;
+      }else {
+      cout << "Não foi possível abrir o arquivo." << endl;
+      }
+   }
 
+ 
    al_rest(1.0); //atrasar a movimentacao   
    al_destroy_font(font);
    al_destroy_display(display); //Destroi a tela
