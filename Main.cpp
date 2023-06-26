@@ -79,7 +79,7 @@ int main(){
    cout << "Digite seu primeiro nome: ";
    cin >> nome;   
    double inicio = getTempoAtual();
-   double duracao;
+   double duracao = 0;
 
    double tempo_salvo;
    FILE* arquivo = fopen("livro_recordes.txt", "r");
@@ -194,13 +194,17 @@ int main(){
       al_flip_display();    
       lab.exibir_labirinto();
       if(placar == pilulas_totais){
-         printf("PARABENS, VOCE VENCEU !!!!\n\n");
          fim = getTempoAtual();
          duracao = fim - inicio;
+          cout << "PARABENS, VOCE VENCEU !!!!" << endl;
+         cout << "Duracao: " << duracao << "!!" << endl;
 
          break;
       }else if(colisao_com_fantasma(pac,ghost1,ghost2,ghost3,ghost4)){
-         printf("VOCE PERDEU !!!!\n\n");
+         fim = getTempoAtual();
+         duracao = fim - inicio;
+         cout << "VOCE PERDEU !!!!" << endl;
+         cout << "Duracao: " << duracao << "!!" << endl;
          break;
       }
 
