@@ -1,7 +1,7 @@
 Estratégia de perseguição Trabalho PACMAN - Orientação a Objetos
 
 A estratégia de perseguição se baseia em seguir o PACMAN desde que ele esteja na mesma linha ou coluna do PACMAN. 
-Se o Fantasma nao estiver em uma linha ou coluna que o PACMAN esteja, a direcao que o Fantasma tomará se baseia em uma das direcões decididas aleatoriamente.
+Se o Fantasma nao estiver em uma linha ou coluna que o PACMAN esteja, a direcao que o Fantasma tomará sera sorteada aleatoriamente.
 A ideia da estratégia é como se o Fantasma estivesse "vendo" o PACMAN, mas não podemos afirmar isso, porque ele enxerga através das paredes.
 
    if (((int)(pac.getPos_x()/TAM_LADO) == (int)(pos_x/TAM_LADO))&& direcao != PARADO){
