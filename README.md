@@ -1,7 +1,8 @@
 Comandos para jogar:
 
 Linux:
-1. rode o comando ./run.sh
+1. Rode o comando ./run.sh
+2. Execute o comando ./game
 
 Se não funcionar, compile os arquivos e execute o jogo manualmente seguindo esses passos:
 
