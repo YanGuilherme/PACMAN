@@ -50,7 +50,7 @@ class Personagem{
     protected:
         int DESLOCAMENTO;
 
-        //variaveis para a movimentacao do personagem;
+        //atributos para a movimentacao do personagem;
         int pos_x;
         int pos_y;
 

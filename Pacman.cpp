@@ -9,6 +9,7 @@
 using namespace std;
 
 Pacman::Pacman(){
+   //posicao inicial pacman
    pos_x = (LARGURA_TABULEIRO/2-(LARGURA_PACMAN/2));
    pos_y = ((ALTURA_TABULEIRO/2-(ALTURA_PACMAN/2))+ALTURA_PACMAN);
    DESLOCAMENTO = 5;

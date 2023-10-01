@@ -80,7 +80,6 @@ int main(){
    cin >> nome;   
    double inicio = getTempoAtual();
    double duracao = 0;
-
    double tempo_salvo;
    FILE* arquivo = fopen("livro_recordes.txt", "r");
    fscanf(arquivo,"%lf-%s", &tempo_salvo, linha_arquivo);
@@ -145,24 +144,16 @@ int main(){
          switch (event.keyboard.keycode) {
             case ALLEGRO_KEY_RIGHT:
             pac.setIntencao(DIREITA);
-            tecla_pressionada = true;
             break;
             case ALLEGRO_KEY_LEFT:
             pac.setIntencao(ESQUERDA);
-            tecla_pressionada = true;
             break;
             case ALLEGRO_KEY_DOWN:
             pac.setIntencao(BAIXO);
-            tecla_pressionada = true;
             break;
             case ALLEGRO_KEY_UP:
             pac.setIntencao(CIMA);
-            tecla_pressionada = true;
             break;
-         }
-         if(tecla_pressionada){
-            al_rest(0.05);
-
          }
          break;
       }
@@ -173,9 +164,7 @@ int main(){
       lab.exibir_pilulas();
       pac.exibe_pacman();
       pac.move_pacman(lab);
-      sprintf(texto, "PLACAR %d", placar);
-      sprintf(texto2,"TOTAL %d", pilulas_totais);
-      sprintf(texto3,"RECORDE: %lf - %s", tempo_salvo, linha_arquivo);
+
       ghost1.exibe_fantasma();
       ghost1.vision_pursuit(lab,pac);
       ghost2.exibe_fantasma();
@@ -185,12 +174,16 @@ int main(){
       ghost4.exibe_fantasma();
       ghost4.vision_pursuit(lab,pac);
 
+      sprintf(texto, "PLACAR %d", placar);
+      sprintf(texto2,"TOTAL %d", pilulas_totais);
+      sprintf(texto3,"RECORDE: %lf - %s", tempo_salvo, linha_arquivo);
+
       // Desenhe o texto no display
       al_draw_text(font, textColor, 240, 0, ALLEGRO_ALIGN_CENTER, texto);
       al_draw_text(font, textColor2, 480, 0, ALLEGRO_ALIGN_CENTER, texto2);
       al_draw_text(font2, textColor3, 361, 347, ALLEGRO_ALIGN_CENTER, texto3);
 
-      //imprime_matriz_colisao(lab);
+      imprime_matriz_colisao(lab);
       al_flip_display();    
       lab.exibir_labirinto();
       if(placar == pilulas_totais){
