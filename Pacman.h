@@ -12,6 +12,7 @@
 class Pacman:public Personagem{
     public:
         Pacman();
+        ~Pacman();
         int coleta_pilula(Labirinto  *lab);
         void exibe_pacman();
         void altera_frame_pacman();

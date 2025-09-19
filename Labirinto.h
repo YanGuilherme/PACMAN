@@ -35,6 +35,7 @@ class Labirinto{
 
 
         Labirinto();
+        ~Labirinto();
     private:
         ListaCoordenadas coordenadas_pilulas;
         ListaCoordenadas coordenadas_tijolo;

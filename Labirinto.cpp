@@ -9,6 +9,19 @@
 #include <allegro5/keyboard.h>
 #include <array> 
 
+Labirinto::Labirinto(){
+    pilula_desenho = al_load_bitmap("./imagenstrab/sprite_pilula2.png");
+    for(int i = 0; i < ORDEM; i++){
+        for(int j=0; j < ORDEM; j++){
+            matriz_colisao[i][j] = CELULA_VAZIA;
+        }
+    }
+}
+
+Labirinto::~Labirinto(){
+    al_destroy_bitmap(pilula_desenho);
+}
+
 void Labirinto::setNome_arquivo(const char *nome){
     this->nome_arquivo = nome;
 }
@@ -44,20 +57,16 @@ void Labirinto::carregarPosicaoDosTijolos(){
 
 
 void Labirinto::exibir_pilulas(){
-    int indiceX;
-    int indiceY;
-    
-    pilula_desenho = al_load_bitmap("./imagenstrab/sprite_pilula2.png");
-    for(Coordenada& coordenada : coordenadas_pilulas){
-        if(matriz_colisao[coordenada.getY()][coordenada.getX()] == PILULA){
-            indiceX = coordenada.getX();
-            indiceY = coordenada.getY();
-            al_draw_bitmap_region(pilula_desenho, TAM_LADO*(int)frame_pilula, 0, TAM_LADO, TAM_LADO, TAM_LADO*indiceX ,TAM_LADO*indiceY,0);
-            altera_frame_pilula();
+    if(pilula_desenho) { // Verifica se a imagem foi carregada
+        for(Coordenada& coordenada : coordenadas_pilulas){
+            if(matriz_colisao[coordenada.getY()][coordenada.getX()] == PILULA){
+                int indiceX = coordenada.getX();
+                int indiceY = coordenada.getY();
+                al_draw_bitmap_region(pilula_desenho, TAM_LADO*(int)frame_pilula, 0, TAM_LADO, TAM_LADO, TAM_LADO*indiceX ,TAM_LADO*indiceY,0);
+            }
         }
-
+        altera_frame_pilula(); // Uma vez só, fora do loop
     }
-    
 }
 
 int Labirinto::conta_pilulas(){
@@ -90,12 +99,5 @@ void Labirinto::altera_frame_pilula(){
       }
 }
 
-Labirinto::Labirinto(){
-    for(int i = 0; i < ORDEM; i++){
-        for(int j=0; j < ORDEM; j++){
-            matriz_colisao[i][j] = CELULA_VAZIA;
-        }
-    }
-}
 
 

@@ -10,6 +10,7 @@
 #include "Fantasma.h"
 #include <chrono>
 #include <thread>
+#include <string>
 #include <fstream>
 
 using namespace std;
@@ -54,7 +55,7 @@ void imprime_matriz_colisao(Labirinto lab){
 
 }
 
-// Função para obter o tempo atual em segundos
+// FunÃ§Ã£o para obter o tempo atual em segundos
 double getTempoAtual() {
     auto agora = std::chrono::steady_clock::now();
     std::chrono::duration<double> duracao = agora.time_since_epoch();
@@ -63,21 +64,23 @@ double getTempoAtual() {
 
 int main(){
    
+   // Array de teclas para controlar estado persistente
+   bool teclas[ALLEGRO_KEY_MAX] = {false};
+   bool re_desenha = true;
 
    ListaCoordenadas lc;
-   Pacman pac;
+   Pacman pac = Pacman();
    Labirinto lab = Labirinto();
    int placar = 0;
    int pilulas_totais = 0;
-   Fantasma ghost1(1);
-   Fantasma ghost2(2), ghost3(3), ghost4(4);
+   Fantasma ghost1(1), ghost2(2), ghost3(3), ghost4(4);
    char texto[50], texto2[50], texto3[50];
    char linha_arquivo[30];
-   bool tecla_pressionada = false;
    double fim;
-   char nome[50];
-   cout << "Digite seu primeiro nome: ";
-   cin >> nome;   
+   string nome;
+   nome = "yan";
+   //cout << "Digite seu primeiro nome: ";
+   //cin >> nome;   
    double inicio = getTempoAtual();
    double duracao = 0;
    double tempo_salvo;
@@ -86,7 +89,7 @@ int main(){
    // fscanf(arquivo, "%s", &linha_arquivo);
    fclose(arquivo);
 
-    //Inicializacao dos serviços basicos
+    //Inicializacao dos serviÃ§os basicos
    al_init();
    al_init_image_addon();
    al_install_keyboard();
@@ -139,77 +142,102 @@ int main(){
       switch (event.type) {
       case ALLEGRO_EVENT_DISPLAY_CLOSE:
          // fechar janela clicando no x
+         goto fim_jogo;
          break;
       case ALLEGRO_EVENT_KEY_DOWN:
-         switch (event.keyboard.keycode) {
-            case ALLEGRO_KEY_RIGHT:
+         // Apenas marca a tecla como pressionada
+         teclas[event.keyboard.keycode] = true;
+         break;
+      case ALLEGRO_EVENT_KEY_UP:
+         // Apenas marca a tecla como liberada
+         teclas[event.keyboard.keycode] = false;
+         break;
+      case ALLEGRO_EVENT_TIMER:
+         // TODA A LÓGICA DO JOGO ACONTECE AQUI, NO TIMER!
+         
+         // Processa inputs apenas uma vez por frame
+         if(teclas[ALLEGRO_KEY_RIGHT]) {
             pac.setIntencao(DIREITA);
-            break;
-            case ALLEGRO_KEY_LEFT:
-            pac.setIntencao(ESQUERDA);
-            break;
-            case ALLEGRO_KEY_DOWN:
-            pac.setIntencao(BAIXO);
-            break;
-            case ALLEGRO_KEY_UP:
-            pac.setIntencao(CIMA);
-            break;
          }
+         if(teclas[ALLEGRO_KEY_LEFT]) {
+            pac.setIntencao(ESQUERDA);
+         }
+         if(teclas[ALLEGRO_KEY_DOWN]) {
+            pac.setIntencao(BAIXO);
+         }
+         if(teclas[ALLEGRO_KEY_UP]) {
+            pac.setIntencao(CIMA);
+         }
+
+         // Lógica do jogo (SEM chamar exibir aqui)
+         placar += pac.coleta_pilula(&lab);
+         pac.move_pacman(lab);
+
+         pac.altera_frame_pacman();    // ← Controla animação do Pacman
+         lab.altera_frame_pilula(); 
+
+         ghost1.vision_pursuit(lab,pac);
+         ghost2.vision_pursuit(lab,pac);
+         ghost3.vision_pursuit(lab,pac);
+         ghost4.vision_pursuit(lab,pac);
+
+         // Verifica condições de fim de jogo
+         if(placar == pilulas_totais){
+            fim = getTempoAtual();
+            duracao = fim - inicio;
+            cout << "PARABENS, VOCE VENCEU !!!!" << endl;
+            cout << "Duracao: " << duracao << "!!" << endl;
+            goto fim_jogo;
+         }else if(colisao_com_fantasma(pac,ghost1,ghost2,ghost3,ghost4)){
+            fim = getTempoAtual();
+            duracao = fim - inicio;
+            cout << "VOCE PERDEU !!!!" << endl;
+            cout << "Duracao: " << duracao << "!!" << endl;
+            goto fim_jogo;
+         }
+
+         re_desenha = true;
          break;
       }
 
-      //int indiceX = (pac.getPos_x()/ALTURA_PACMAN);
-      //int indiceY = (pac.getPos_y()/ALTURA_PACMAN);
-      placar += pac.coleta_pilula(&lab);
-      lab.exibir_pilulas();
-      pac.exibe_pacman();
-      pac.move_pacman(lab);
+      // Redesenha apenas quando necessário e a fila está vazia
+      if(re_desenha && al_is_event_queue_empty(event_queue)) {
+         re_desenha = false;
+         
+         
+         lab.exibir_labirinto();  
+         lab.exibir_pilulas();     
+         pac.exibe_pacman();   
+         
+         ghost1.exibe_fantasma();
+         ghost2.exibe_fantasma();
+         ghost3.exibe_fantasma();
+         ghost4.exibe_fantasma();
 
-      ghost1.exibe_fantasma();
-      ghost1.vision_pursuit(lab,pac);
-      ghost2.exibe_fantasma();
-      ghost2.vision_pursuit(lab,pac);
-      ghost3.exibe_fantasma();
-      ghost3.vision_pursuit(lab,pac);
-      ghost4.exibe_fantasma();
-      ghost4.vision_pursuit(lab,pac);
+         sprintf(texto, "PLACAR %d", placar);
+         sprintf(texto2,"TOTAL %d", pilulas_totais);
+         sprintf(texto3,"RECORDE: %lf - %s", tempo_salvo, linha_arquivo);
 
-      sprintf(texto, "PLACAR %d", placar);
-      sprintf(texto2,"TOTAL %d", pilulas_totais);
-      sprintf(texto3,"RECORDE: %lf - %s", tempo_salvo, linha_arquivo);
+         // Desenhe o texto no display
+         al_draw_text(font, textColor, 240, 0, ALLEGRO_ALIGN_CENTER, texto);
+         al_draw_text(font, textColor2, 480, 0, ALLEGRO_ALIGN_CENTER, texto2);
+         al_draw_text(font2, textColor3, 361, 347, ALLEGRO_ALIGN_CENTER, texto3);
 
-      // Desenhe o texto no display
-      al_draw_text(font, textColor, 240, 0, ALLEGRO_ALIGN_CENTER, texto);
-      al_draw_text(font, textColor2, 480, 0, ALLEGRO_ALIGN_CENTER, texto2);
-      al_draw_text(font2, textColor3, 361, 347, ALLEGRO_ALIGN_CENTER, texto3);
-
-      imprime_matriz_colisao(lab);
-      al_flip_display();    
-      lab.exibir_labirinto();
-      if(placar == pilulas_totais){
-         fim = getTempoAtual();
-         duracao = fim - inicio;
-          cout << "PARABENS, VOCE VENCEU !!!!" << endl;
-         cout << "Duracao: " << duracao << "!!" << endl;
-
-         break;
-      }else if(colisao_com_fantasma(pac,ghost1,ghost2,ghost3,ghost4)){
-         fim = getTempoAtual();
-         duracao = fim - inicio;
-         cout << "VOCE PERDEU !!!!" << endl;
-         cout << "Duracao: " << duracao << "!!" << endl;
-         break;
+         imprime_matriz_colisao(lab);
+         al_flip_display();
       }
-
    }
-      if(duracao < tempo_salvo && placar == pilulas_totais){
+
+   fim_jogo:
+   if(duracao < tempo_salvo && placar == pilulas_totais){
       cout << "NOVO RECORDE!! ABRA O JOGO NOVAMENTE PARA CONFERIR" << endl;
       arquivo = fopen("livro_recordes.txt", "w");
       if(arquivo != nullptr){
       sprintf(texto3, "%lf", duracao);
       fprintf(arquivo, "%s", texto3); 
       fprintf(arquivo, "-");
-      fprintf(arquivo, "%s", nome);
+      const char* nome_ch = nome.c_str();
+      fprintf(arquivo, "%s", nome_ch);
       fclose(arquivo);
       cout << "Arquivo salvo com sucesso." << endl;
       }else {

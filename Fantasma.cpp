@@ -1,6 +1,11 @@
 #include "Fantasma.h"
 #include "Pacman.h"
 
+#define FANTASMA_VERMELHO 1 
+#define FANTASMA_ROSA 2 
+#define FANTASMA_AZUL 3 
+#define FANTASMA_AMARELO 4 
+
 using namespace std;
 
 
@@ -8,17 +13,17 @@ using namespace std;
 Fantasma::Fantasma(){
 }
 
-Fantasma::Fantasma(int a){
+Fantasma::Fantasma(int cor_fantasma){
    DESLOCAMENTO = 4;
-   switch (a){
-   case 1:
+   switch (cor_fantasma){
+   case FANTASMA_VERMELHO:
       pos_x = LADO_FANTASMA;
       pos_y = LADO_FANTASMA;
       direcao = PARADO;
       intencao = SEM_INTENCAO;
       nome_imagem = "./imagenstrab/fantasma_vermelho.png";
       break;
-   case 2:
+   case FANTASMA_ROSA:
       pos_x = LADO_FANTASMA*17;
       pos_y = LADO_FANTASMA;
       direcao = PARADO;
@@ -26,7 +31,7 @@ Fantasma::Fantasma(int a){
       nome_imagem =  "./imagenstrab/fantasma_rosa.png";
 
       break;
-   case 3:
+   case FANTASMA_AZUL:
       pos_x = LADO_FANTASMA;
       pos_y = LADO_FANTASMA*17;
       direcao = PARADO;
@@ -34,7 +39,7 @@ Fantasma::Fantasma(int a){
       nome_imagem =  "./imagenstrab/fantasma_azul.png";
 
       break;
-   case 4:
+   case FANTASMA_AMARELO:
       pos_x = LADO_FANTASMA*17;
       pos_y = LADO_FANTASMA*17;
       direcao = PARADO;

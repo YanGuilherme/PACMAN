@@ -17,7 +17,13 @@ Pacman::Pacman(){
    direcao = PARADO;
    intencao = SEM_INTENCAO;
    nome_imagem = "./imagenstrab/sprites2.png";
+   sprite_personagem = al_load_bitmap(nome_imagem);
 
+
+}
+
+Pacman::~Pacman(){
+   al_destroy_bitmap(sprite_personagem);
 
 }
 
@@ -36,11 +42,11 @@ int Pacman::coleta_pilula(Labirinto *lab)
 }
 
 void Pacman::exibe_pacman(){
-    sprite_personagem = al_load_bitmap(nome_imagem);
-    al_draw_bitmap_region(sprite_personagem, LARGURA_PACMAN*(int)frame, current_frame_y, LARGURA_PACMAN, ALTURA_PACMAN, pos_x ,pos_y,0);
-    altera_frame_pacman();
+    if(sprite_personagem) { // Verifica se a imagem foi carregada
+        al_draw_bitmap_region(sprite_personagem, LARGURA_PACMAN*(int)frame, current_frame_y, LARGURA_PACMAN, ALTURA_PACMAN, pos_x ,pos_y,0);
+        altera_frame_pacman();
+    }
 }
-
 void Pacman::move_pacman(Labirinto lab){
 
    if(intencao == SEM_INTENCAO && direcao == PARADO){ 
