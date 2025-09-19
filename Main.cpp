@@ -15,7 +15,7 @@
 
 using namespace std;
 
-bool colisao_com_fantasma(Pacman pac, Fantasma ghost1, Fantasma ghost2,Fantasma ghost3,Fantasma ghost4){
+bool colisao_com_fantasma(const Pacman& pac, const Fantasma& ghost1, const Fantasma& ghost2, const Fantasma& ghost3, const Fantasma& ghost4) {
    int indiceX[5];
    int indiceY[5];
    indiceX[0] = (pac.getPos_x()+(TAM_LADO/2))/TAM_LADO;
@@ -44,7 +44,8 @@ bool colisao_com_fantasma(Pacman pac, Fantasma ghost1, Fantasma ghost2,Fantasma 
 }
 
 
-void imprime_matriz_colisao(Labirinto lab){
+void imprime_matriz_colisao(const Labirinto& lab){
+   // system("clear");
    for(int i = 0 ; i<ORDEM ; i++){
       for(int j = 0 ; j <ORDEM; j++){
             printf("%d ", lab.matriz_colisao[i][j]);
@@ -69,11 +70,8 @@ int main(){
    bool re_desenha = true;
 
    ListaCoordenadas lc;
-   Pacman pac = Pacman();
-   Labirinto lab = Labirinto();
    int placar = 0;
    int pilulas_totais = 0;
-   Fantasma ghost1(1), ghost2(2), ghost3(3), ghost4(4);
    char texto[50], texto2[50], texto3[50];
    char linha_arquivo[30];
    double fim;
@@ -89,7 +87,7 @@ int main(){
    // fscanf(arquivo, "%s", &linha_arquivo);
    fclose(arquivo);
 
-    //Inicializacao dos serviÃ§os basicos
+    //Inicializacao dos serviços basicos
    al_init();
    al_init_image_addon();
    al_install_keyboard();
@@ -119,6 +117,12 @@ int main(){
    al_set_window_title(display, "PACMAN");
    al_set_window_position(display,200,200); //seta onde abre a tela
    ALLEGRO_TIMER* timer = al_create_timer(1.0/20.0); // fps
+
+   
+   Pacman pac = Pacman();
+   Labirinto lab = Labirinto();
+   Fantasma ghost1(1), ghost2(2), ghost3(3), ghost4(4);
+
 
    ALLEGRO_EVENT_QUEUE * event_queue = al_create_event_queue();
    al_register_event_source(event_queue, al_get_display_event_source(display));
@@ -223,7 +227,7 @@ int main(){
          al_draw_text(font, textColor2, 480, 0, ALLEGRO_ALIGN_CENTER, texto2);
          al_draw_text(font2, textColor3, 361, 347, ALLEGRO_ALIGN_CENTER, texto3);
 
-         imprime_matriz_colisao(lab);
+         // imprime_matriz_colisao(lab);
          al_flip_display();
       }
    }
@@ -250,8 +254,6 @@ int main(){
    al_destroy_font(font);
    al_destroy_display(display); //Destroi a tela
    al_destroy_event_queue(event_queue);//destroi fila de eventos
-   al_destroy_bitmap(pac.sprite_personagem); //destoi imagem do pacman
-   al_destroy_bitmap(lab.mapa_desenho); //destroi fundo
    al_uninstall_keyboard(); //desinstalar o teclado
 
    return 0;

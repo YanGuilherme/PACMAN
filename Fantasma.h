@@ -9,16 +9,19 @@
 
 class Fantasma: public Personagem{
     public:
-        Fantasma();
         Fantasma(int);
+        ~Fantasma();
         void exibe_fantasma();
         void altera_frame_fantasma();
-        void move_fantasma_random(Labirinto lab);
-        void direct_chase(Labirinto lab, Pacman);
-        void vision_pursuit(Labirinto lab, Pacman);
+        void move_fantasma_random(const Labirinto& lab);
+        void direct_chase(const Labirinto& lab, const Pacman &pac);
+        void vision_pursuit(const Labirinto& lab, const Pacman& pac);
+
+        Fantasma(const Fantasma&) = delete;
+        Fantasma& operator=(const Fantasma&) = delete;
 
     private:
-        int num_possibilidades(Labirinto lab);
+        int num_possibilidades(const Labirinto& lab);
 
 };
 

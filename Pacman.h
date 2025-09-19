@@ -13,10 +13,13 @@ class Pacman:public Personagem{
     public:
         Pacman();
         ~Pacman();
-        int coleta_pilula(Labirinto  *lab);
+        int coleta_pilula(Labirinto *lab);
         void exibe_pacman();
         void altera_frame_pacman();
-        void move_pacman(Labirinto lab);
+        void move_pacman(const Labirinto& lab);
+
+        Pacman(const Pacman&) = delete;
+        Pacman& operator=(const Pacman&) = delete;
 
 
 

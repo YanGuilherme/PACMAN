@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int Personagem::colidiu_direita_tijolo(Labirinto lab){ 
+int Personagem::colidiu_direita_tijolo(const Labirinto& lab){ 
    int indiceX, indiceY1, indiceY2;
    indiceX = ((pos_x + LARGURA_PACMAN)/LARGURA_PACMAN);
    indiceY1 = (pos_y/ALTURA_PACMAN);
@@ -20,7 +20,7 @@ int Personagem::colidiu_direita_tijolo(Labirinto lab){
 }
 
 
-int Personagem::colidiu_esquerda_tijolo(Labirinto lab){ 
+int Personagem::colidiu_esquerda_tijolo(const Labirinto& lab){ 
    int indiceX, indiceY1, indiceY2;
    indiceX = (pos_x - FATOR_PIXEL)/(LARGURA_PACMAN);
    indiceY1 = (pos_y + ALTURA_PACMAN - FATOR_PIXEL)/ALTURA_PACMAN;
@@ -33,7 +33,7 @@ int Personagem::colidiu_esquerda_tijolo(Labirinto lab){
 }
 
 
-int Personagem::colidiu_baixo_tijolo(Labirinto lab){ 
+int Personagem::colidiu_baixo_tijolo(const Labirinto& lab){ 
    int indiceX1, indiceX2, indiceY;
    indiceX1 = ((pos_x)/LARGURA_PACMAN);
    indiceX2 = ((pos_x + LARGURA_PACMAN - FATOR_PIXEL)/LARGURA_PACMAN);
@@ -46,7 +46,7 @@ int Personagem::colidiu_baixo_tijolo(Labirinto lab){
 }
 
 
-int Personagem::colidiu_cima_tijolo(Labirinto lab){ 
+int Personagem::colidiu_cima_tijolo(const Labirinto& lab){ 
    int indiceX1, indiceX2, indiceY;
    indiceX1 = ((pos_x)/LARGURA_PACMAN);
    indiceX2 = ((pos_x + LARGURA_PACMAN - FATOR_PIXEL)/LARGURA_PACMAN);
@@ -60,21 +60,21 @@ int Personagem::colidiu_cima_tijolo(Labirinto lab){
 
 
 
-int Personagem::getPos_x(){
+int Personagem::getPos_x() const{
     return pos_x;
 }
-int Personagem::getPos_y(){
+int Personagem::getPos_y() const{
     return pos_y;
 }
-int Personagem::getDirecao(){
+int Personagem::getDirecao() const{
     return direcao;
 }
 
-int Personagem::getCurrentFrame(){
+int Personagem::getCurrentFrame() const{
     return current_frame_y;
 }
 
-int Personagem::getIntencao(){
+int Personagem::getIntencao() const{
     return intencao;
 }
 

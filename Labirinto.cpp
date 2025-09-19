@@ -10,7 +10,15 @@
 #include <array> 
 
 Labirinto::Labirinto(){
+    pilula_desenho = nullptr;
     pilula_desenho = al_load_bitmap("./imagenstrab/sprite_pilula2.png");
+    if (!pilula_desenho) {
+        std::cerr << "Erro ao carregar sprite_pilula2.png" << std::endl;
+    }
+    mapa_desenho = al_load_bitmap("./imagenstrab/bloco.png");
+    if (!mapa_desenho) {
+        std::cerr << "Erro ao carregar bloco.png" << std::endl;
+    }
     for(int i = 0; i < ORDEM; i++){
         for(int j=0; j < ORDEM; j++){
             matriz_colisao[i][j] = CELULA_VAZIA;
@@ -18,23 +26,26 @@ Labirinto::Labirinto(){
     }
 }
 
-Labirinto::~Labirinto(){
-    al_destroy_bitmap(pilula_desenho);
+Labirinto::~Labirinto() {
+    if (pilula_desenho) {
+        al_destroy_bitmap(pilula_desenho);
+        pilula_desenho = nullptr;
+    }
+    if (mapa_desenho) {
+        al_destroy_bitmap(mapa_desenho);
+        mapa_desenho = nullptr;
+    }
 }
-
 void Labirinto::setNome_arquivo(const char *nome){
     this->nome_arquivo = nome;
 }
 
 void Labirinto::exibir_labirinto(){
-    al_clear_to_color(al_map_rgb(0,0,0)); //Cor de background da tela
-    mapa_desenho = al_load_bitmap("./imagenstrab/bloco.png");
+    al_clear_to_color(al_map_rgb(0,0,0));
+    if (!mapa_desenho) return; // Não desenhe se não carregou!
     for(Coordenada& coordenada : coordenadas_tijolo){
         al_draw_bitmap(mapa_desenho,TAM_LADO*coordenada.getX(),TAM_LADO*coordenada.getY(),0);
     }
-
-    
-
 }
 
 void Labirinto::carregarPosicaoDosTijolos(){
@@ -65,7 +76,6 @@ void Labirinto::exibir_pilulas(){
                 al_draw_bitmap_region(pilula_desenho, TAM_LADO*(int)frame_pilula, 0, TAM_LADO, TAM_LADO, TAM_LADO*indiceX ,TAM_LADO*indiceY,0);
             }
         }
-        altera_frame_pilula(); // Uma vez só, fora do loop
     }
 }
 

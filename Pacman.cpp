@@ -10,6 +10,7 @@ using namespace std;
 
 Pacman::Pacman(){
    //posicao inicial pacman
+   sprite_personagem = nullptr;
    pos_x = (LARGURA_TABULEIRO/2-(LARGURA_PACMAN/2));
    pos_y = ((ALTURA_TABULEIRO/2-(ALTURA_PACMAN/2))+ALTURA_PACMAN);
    DESLOCAMENTO = 5;
@@ -23,7 +24,10 @@ Pacman::Pacman(){
 }
 
 Pacman::~Pacman(){
-   al_destroy_bitmap(sprite_personagem);
+   if(sprite_personagem){
+      al_destroy_bitmap(sprite_personagem);
+      sprite_personagem = nullptr;
+   }
 
 }
 
@@ -44,10 +48,9 @@ int Pacman::coleta_pilula(Labirinto *lab)
 void Pacman::exibe_pacman(){
     if(sprite_personagem) { // Verifica se a imagem foi carregada
         al_draw_bitmap_region(sprite_personagem, LARGURA_PACMAN*(int)frame, current_frame_y, LARGURA_PACMAN, ALTURA_PACMAN, pos_x ,pos_y,0);
-        altera_frame_pacman();
     }
 }
-void Pacman::move_pacman(Labirinto lab){
+void Pacman::move_pacman(const Labirinto& lab){
 
    if(intencao == SEM_INTENCAO && direcao == PARADO){ 
       return;

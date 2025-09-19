@@ -30,16 +30,17 @@ class Personagem{
 
     public:
         float frame;
-        int getPos_x();
-        int getPos_y();
-        int getDirecao();
-        int getIntencao();
+        int getPos_x() const;
+        int getPos_y() const;
+        int getDirecao() const;
+        int getIntencao() const;
         void setPos_x(int x);
         void setPos_y(int y);
-        int getCurrentFrame();
+        int getCurrentFrame() const;
         void setDirecao(int dir);
         void setIntencao(int inten);
         void setCurrentFrame(int cf);
+        virtual ~Personagem() = default;
 
         ALLEGRO_BITMAP* sprite_personagem;
 
@@ -60,10 +61,10 @@ class Personagem{
         int intencao;
 
         const char* nome_imagem;
-        int colidiu_cima_tijolo(Labirinto lab);
-        int colidiu_baixo_tijolo(Labirinto lab);
-        int colidiu_direita_tijolo(Labirinto lab);
-        int colidiu_esquerda_tijolo(Labirinto lab);
+        int colidiu_cima_tijolo(const Labirinto& lab);
+        int colidiu_baixo_tijolo(const Labirinto& lab);
+        int colidiu_direita_tijolo(const Labirinto& lab);
+        int colidiu_esquerda_tijolo(const Labirinto& lab);
 
 };
 

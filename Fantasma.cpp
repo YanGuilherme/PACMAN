@@ -10,10 +10,17 @@ using namespace std;
 
 
 
-Fantasma::Fantasma(){
+
+Fantasma::~Fantasma() {
+    if (sprite_personagem) {
+        al_destroy_bitmap(sprite_personagem);
+        sprite_personagem = nullptr;
+    }
 }
 
 Fantasma::Fantasma(int cor_fantasma){
+   sprite_personagem = nullptr;
+
    DESLOCAMENTO = 4;
    switch (cor_fantasma){
    case FANTASMA_VERMELHO:
@@ -51,12 +58,17 @@ Fantasma::Fantasma(int cor_fantasma){
     default:
         break;
     }
+   sprite_personagem = al_load_bitmap(nome_imagem); // <-- Carregue aqui!
+   if (!sprite_personagem) {
+      std::cerr << "Erro ao carregar " << nome_imagem << std::endl;
+   }
 }
 
 void Fantasma::exibe_fantasma()
 {
-    sprite_personagem = al_load_bitmap(nome_imagem);
-    al_draw_bitmap_region(sprite_personagem, LADO_FANTASMA*(int)frame, current_frame_y, LADO_FANTASMA, LADO_FANTASMA, pos_x ,pos_y,0);
+    if (sprite_personagem) {
+        al_draw_bitmap_region(sprite_personagem, LADO_FANTASMA*(int)frame, current_frame_y, LADO_FANTASMA, LADO_FANTASMA, pos_x ,pos_y,0);
+    }
     altera_frame_fantasma();
 }
 
@@ -67,7 +79,7 @@ void Fantasma::altera_frame_fantasma(){
     }
 }
 
-int Fantasma::num_possibilidades(Labirinto lab){
+int Fantasma::num_possibilidades(const Labirinto& lab){
     int cont = 0;
     if(colidiu_cima_tijolo(lab) != PARADO) cont++;
     if(colidiu_baixo_tijolo(lab) != PARADO) cont++;
@@ -76,7 +88,7 @@ int Fantasma::num_possibilidades(Labirinto lab){
     return cont;
 }
 
-void Fantasma::move_fantasma_random(Labirinto lab){
+void Fantasma::move_fantasma_random(const Labirinto& lab){
    std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dis(1, 4);
@@ -154,7 +166,7 @@ void Fantasma::move_fantasma_random(Labirinto lab){
 }
 
 
-void Fantasma::direct_chase(Labirinto lab, Pacman pac){
+void Fantasma::direct_chase(const Labirinto& lab, const Pacman& pac){
 
    float diferenca_x = pac.getPos_x() - pos_x;
    float diferenca_y = pac.getPos_y() - pos_y;
@@ -231,7 +243,7 @@ void Fantasma::direct_chase(Labirinto lab, Pacman pac){
    }
 }
 
-   void Fantasma::vision_pursuit(Labirinto lab, Pacman pac){
+   void Fantasma::vision_pursuit(const Labirinto& lab, const Pacman& pac){
 
    std::random_device rd;
     std::mt19937 gen(rd());
